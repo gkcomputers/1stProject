@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sea Report Form</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	 <meta name="description" content="">
+    <meta name="author" content="">
+	
+	<!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="fonts/Kelson Sans Regular.otf" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <link href="../css/ibsstyle.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	
+	 
+
+    <link type="text/css" rel="stylesheet" href="../css/datechooser.css">
+    <!-- <link type="text/css" rel="stylesheet" href="../css/pagesetup.css"> -->
+	
+    <script type="text/javascript" src="../js/datechooser.js"></script>
+    <script type="text/javascript" src="../js/helpers.js"></script>
+    <script type="text/javascript" src="../js/seareport.js"></script>
+    <script type="text/javascript" src="../js/json2.js"></script>
+    <script type="text/javascript" src="../js/Ports.min.json.js"></script>
+	
+	
+	
+	<script src="../vendor/jquery/jquery.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/vessel.js"></script>
+    <script src="../js/country.js"></script>
+    <script src="../js/port.js"></script>
+    <script src="../js/fuel.js"></script>
+    <script src="../js/fuelgrade.js"></script>
+    <script src="../js/mailconfig.js"></script>
+    <script src="../js/schedules.js"></script>
+    <script src="../js/cosp.js"></script>
+	<script src="../js/rendered.js"></script>
+    <script src="../js/masterreport.js"></script>
+	
+
+</head>
+<style>
+.navbar-default{
+background:url("../img/header.jpg")no-repeat !important;
+}
+
+</style>
+
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin:0; border:0">
+<div class="col-sm-6" style="hight:50px;" style="margin-top:13px;">
+<a class="fa fa-bars" href="#menu-toggle" id="menu-toggle"style="font-size:23px;margin-top:15px;"></a></div>
+        <div class="pull-right " style=" margin-top: 10px; margin-right:5px">
+		
+<!--
+                     <img src="../img/user.png"style="width:32px" />					  
+					  <span class="Logout" style="margin-right:20px; color:blue">Robertsyo</span>
+					 <a href="login.html" style="margin-right: 10px;"> <i class="fa fa-sign-out" aria-hidden="true" style="color:blue; ma"></i> <span class="Logout" style=" color:blue">Logout</span></a>
+-->
+		 <!-- <a href="login.html" class="btn btn-danger confirmation" style="margin-right: 10px;"> <span class="Logout" style=" color:blue">Logout</span> <i class="fa fa-times-circle-o fa-lg" aria-hidden="true" style="color:#fff !important;"></i></a> -->
+    
+    
+    </div>
+	</nav>
+	
+	
+
+<body onLoad=seareportinit()>
+<!-- <div id="title" align="center">
+    <span style="font-size:large;font-weight:bold;"><img src="img/VPS%20Logo.jpg" style="width: 240px;"/><br>Port/Idle Report Form</span>
+    <span style="font-size:small;">Ver.</span>
+</div> -->
+
+<div id="wrapper" style="margin-top:-1px">
+
+<!-- Sidebar -->
+         <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+					 <li id="bosp" role="presentation"  style="display:none;"><a href="cosp.html"> <i class="fa fa-flask fa-fw"></i> BOSP Report</a></li>
+					  <li id="noon" role="presentation" style="display:none;"><a href="noon.html"> <i class="fa fa-bullseye fa-fw"></i> Noon Report</a></li>
+					  <li id="eosp" role="presentation" style="display:none;"><a href="eosp.html"> <i class="fa fa-compass fa-fw"></i> EOSP Report</a></li>
+					   <li id="arrival" role="presentation" style="display:none;"><a href="arrival.html"> <i class="fa fa-paper-plane fa-fw"></i> ArrivalReport </a></li>
+					   <li id="departure" role="presentation" style="display:none;"><a href="departure.html"> <i class="fa fa-share fa-fw"></i>  DepartureReport  </a></li>
+					   <li id="bunkerrequest" role="presentation" style="display:none;"><a href="bunkerrequest.html"> <i class="fa fa-ship fa-fw"></i> BunkerRequest </a></li>
+					   <li id="brob" role="presentation" style="display:none;"><a href="brob.html"> <i class="fa fa-calendar fa-fw"></i>  Bunker ROB - Month End Report</a></li>
+					   <li  id="bdn" role="presentation" style="display:none;"><a href="bdn.html"> <i class="fa fa-shopping-basket fa-fw"></i> BunkerDelivery Note</a></li>
+					   <li id="set" role="presentation" style="">
+							<a href="setting.html" class="confirmation"><i class="fa fa-cogs fa-fw"></i>Settings</a>
+						</li>
+					   <li  id="PortReport" role="presentation" style="display:none;"><a href="PortReport.html"> <i class="fa fa fa-ship fa-fw"></i> Port Report</a></li>
+					   <li  id="SeaReport" class="active" role="presentation" style="display:none;"><a href="SeaReport.html"> <i class="fa fa-sort-amount-desc fa-fw"></i> Sea Report</a></li>
+					</ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+		
+		<div id="page-content-wrapper">
+		
+		<div class="container-fluid">
+		
+		<div class="row">
+
+	<form name="f">
+		
+		<div style="background:white;border: 1px solid #ffffff;box-shadow: 5px 5px 27px #8f8e8e;border-radius: 10px;margin:0 auto;Z-INDEX: 2000;">
+			<div class="col-sm-12" style="font-size:16px;color:#00b6e3;margin-top: 5px;font-weight:bold;background-color: #1794b2;margin-top: 0px; color:white;padding:5px;border-radius:10px 10px 0 0"> Sea Report </div>
+			
+			<div  style="margin-top: 50px">
+			
+			<div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">       
+                            <div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+                            </div>
+                            <div class="section_header">
+                            General
+                            </div>
+				</div>
+				</div>
+				</div>
+			
+        
+        
+			
+			 <div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">IMO Number </div>
+               <div class="col-sm-4">
+			   <input class="form-control" type="text" name="imonumber" value="" title="IMO Number"> 
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">Vessel Name </div>
+                 <div class="col-sm-3">
+				<input class="form-control" type="text" name="vesselname" value="" title="Vessel Name">
+				</div>
+			
+			</div>
+			</div>
+			
+			<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Voyage Number </div>
+               <div class="col-sm-4">
+			   <input class="form-control" type="text" name="voynumber" value="" title="Voyage Number"> 
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">Distance to EOSP </div>
+                 <div class="col-sm-3" style="display: -webkit-inline-box;">
+				<input type="text" class="form-control" width="5px" size="4" name="disteosp" value="" title="Dist EOSP">
+				<span class="text-right" style="">&nbsp;nm </span>
+				</div>
+				
+			
+			</div>
+			</div>
+			
+         <div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="col-sm-2 text-right">Report End Date [UTC] </div>
+		<div id="reportenddatespan" class="col-sm-2" style="display: -webkit-inline-box;">
+                
+                    <input  id="reportenddate" class="form-control" type="text" value="" size="8" title="Date" readonly>
+					 &nbsp;	<input type="image" class="calendar_align" id="rependcal" src="../img/cal.JPG">
+                
+				</div>
+				<div class="col-sm-2" style="display: -webkit-inline-box;">
+                    <select id="rependhour" class="form-control" style="width:auto !important;" name="rependhour" title="Hours">
+                        <option value=""></option>
+                    </select>
+                    &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="rependmin" class="form-control" style="width:auto !important;" name="rependmin" title="Minutes">
+                        <option value=""></option>
+                    </select>
+				</div>
+				
+				<div class="col-sm-2 text-right">Report Duration </div>
+                <div class="col-sm-1" style="display: -webkit-inline-box;">
+                
+                   <!-- <span style="display: inline-block; width: 7px;"></span> -->
+                    <select id="repdurhours" class="form-control" style="width:auto !important;" name="repdurhours" title="Hours">
+                        <option value=""></option>
+                    </select>
+					
+					<span class="text">&nbsp; Hours </span>
+					
+                    &nbsp;<select id="repdurminutes" class="form-control" style="width:auto !important;" name="repdurminutes" title="Minutes">
+                        <option value=""></option>
+                    </select>
+					<span class="text-right">&nbsp; Min </span>
+                </div>
+				
+				
+            </div>
+			</div>
+			
+			<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+		
+                <div class="col-sm-2 text-right"> End of Sea Passage </div>
+				<div class="col-sm-4"> 
+				<input type="checkbox"  name="eosprep" title="Check if report is End of Sea Passsage">
+				</div>
+				
+				
+                <div class="col-sm-2 text-right">Ballast Water [t] </div>
+				<div class="col-sm-3">
+				<input type="text" class="form-control" width="5px" size="4" name="ballast" title="Ballast Water [t]"> 
+            </div>
+			
+			</div>
+			</div>
+			
+            <!--tr>
+                <th align="right">Port Name: </th><th align="left"><input type="text" name="portname" value="" title="Port Name"></th>
+                <th align="right">Port UNLOCODE: </th><th align="left"><input type="text" name="portlocode" value="" title="Port Code"></th>
+            </tr-->
+            <div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Destination Country	 </div>
+				<div class="col-sm-4">
+                <!-- <th align="left"><span style="display: inline-block; width: 7px;"></span> -->
+                    <select class="form-control" id="country" name="Destination Country" title="Country" onchange="setPorts();">
+                        <option value=""></option></select>
+                </div>
+				
+                <div class="col-sm-2 text-right">Destination Port  </div>
+				<div class="col-sm-3"> 
+				<!-- <span style="display: inline-block; width: 7px;"></span> -->
+                <select id="port" class="form-control" name="port" title="Destination Port" disabled="true">
+                    <option value=""></option></select>
+            </div>
+			
+            </div>
+			</div>
+			
+           <div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Draft Fore [m] </div>
+               <div class="col-sm-4">
+			  <input type="text" width="5px" class="form-control" size="4" name="draftfore" title="Draft Fore" />
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">Loading Condition </div>
+                 <div class="col-sm-3">
+				<select id="loadcond"  class="form-control" name="loadcond" title="Loading condition">
+                    <option value=""></option>
+                    <option value="Laden">Laden</option>
+                    <option value="Ballast">Ballast</option>
+                    </select>
+				</div>
+			
+			</div>
+			</div>
+			
+			
+			<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Draft Aft [m] </div>
+               <div class="col-sm-4">
+			   <input type="text" class="form-control" width="5px" size="4" name="draftaft" title="Draft Aft" /> 
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">Metacentric Height </div>
+                 <div class="col-sm-3" style="display: -webkit-inline-box;">
+				<input type="text" class="form-control" width="5px" size="4" name="metaheight" title="Metacentric Height" />
+				<span class="text-right" style="">&nbsp; m </span>
+				</div>
+				
+			
+			</div>
+			</div>
+			
+			
+			<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Voyage Instruction </div>
+               <div class="col-sm-4">
+			  <select id="voyinstruction" class="form-control" name="voyinstruction" title="Voyage Instruction"><option value=""></option>
+			  </select>
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">Instruction Value </div>
+                 <div class="col-sm-3">
+				<input type="text" width="5px" class="form-control" size="4" name="insValue" title="Instruction Value (unit depends on instruction) [kn]/[RPM]/[kW]/[%MCR]/[t/24 h]/[-]" />
+				</div>
+			
+			</div>
+			</div>
+			
+			<br/>
+			
+			
+			<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="col-sm-2 text-right">ETA EOSP [UTC] </div>
+		<div id="etaeospspan" class="col-sm-2" style="display: -webkit-inline-box;">
+                
+                    <input id="etaeosp" class="form-control" type="text" value="" size="8" title="Date" readonly>
+                    &nbsp; <input type="image" class="calendar_align" id="etaeospcal" src="../img/cal.JPG">
+                
+				
+				</div>
+				
+				<div class="col-sm-2" style="display: -webkit-inline-box;">
+                     <select id="etaeosphour" class="form-control" style="width:auto !important;"  name="etaeosphour" title="Hours"><option value=""></option></select>
+                &nbsp; <span style="font-weight:bold"> : </span> &nbsp;
+                     <select id="etaeospmin" class="form-control" style="width:auto !important;"  name="etaeospmin" title="Minutes"><option value=""></option></select>
+				</div>
+				
+				
+				
+				<div class="col-sm-2 text-right">Number of TEU </div>
+                <div class="col-sm-3" >
+                <input type="text" name="teucount"  class="form-control"  width="5px" size="4" value="" title="TEU (Equivalent) count">
+                   <!-- <span style="display: inline-block; width: 7px;"></span> -->
+                    
+                </div>
+				
+            </div>
+			</div>
+			
+			<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="col-sm-2 text-right">ETA Pilot Station [UTC] </div>
+		<div id="etapilotspan" class="col-sm-2" style="display: -webkit-inline-box;">
+                 
+                    <input id="etapilot" type="text" value="" class="form-control" size="8" title="Date" readonly>
+                    &nbsp; <input type="image" class="calendar_align" id="etapilotcal" src="../img/cal.JPG">
+                </div>
+				
+				<div class="col-sm-2" style="display: -webkit-inline-box;">
+                <select id="etapilothour" name="etapilothour" class="form-control" style="width:auto !important;" title="Hours"><option value=""></option></select>
+                 &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+				<select id="etapilotmin" name="etapilotmin"  class="form-control" style="width:auto !important;" title="Minutes"><option value=""></option></select>
+				</div>
+				
+				<div class="col-sm-2 text-right">Number of Reefers </div>
+                <div class="col-sm-3">
+                <input type="text" name="reefercount" class="form-control" width="5px" size="4" value="" title="Reefer count">
+                   <!-- <span style="display: inline-block; width: 7px;"></span> -->
+                    
+                </div>
+				
+            </div>
+			</div>
+			<br/>
+			
+			<div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">       
+                            <div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+                            </div>
+                            <div class="section_header">
+                            Weather and Position
+                            </div>
+				</div>
+				</div>
+				</div>
+        
+    
+		
+		<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">True Wind Speed [kn] </div>
+               <div class="col-sm-4">
+			    <input type="text" width="5px" class="form-control" size="4" name="truewindspeed" value="" title="True Wind Speed"> 
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">True Wind Dir </div>
+                 <div class="col-sm-3" style="display: -webkit-inline-box;">
+				<select id="truewinddir" class="form-control" name="truewinddir" title="truewinddir" ></select>
+				<span class=" text-right" style="">&nbsp; (Coming From) </span>
+				</div>
+				
+		
+        </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">(Sig) Wave height [m]	 </div>
+               <div class="col-sm-4">
+			    <input type="text" width="5px" class="form-control" size="4" name="sigwaveheight" title="Wave Height" /> 
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">Wave Direction	 </div>
+                 <div class="col-sm-3" style="display: -webkit-inline-box;">
+				<select id="truewavedir" class="form-control" name="truewavedir" title="truewavedir"></select> 
+				<span class="text-right" style="">&nbsp; (Going to) </span>
+				</div>
+				
+		
+        </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Swell Height [m]	 </div>
+               <div class="col-sm-4">
+			    <input type="text" width="5px"  class="form-control"  size="4" name="swellheight" title="Swell Height" /> 
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">True Swell Dir </div>
+                 <div class="col-sm-3"  style="display: -webkit-inline-box;">
+				<select id="trueswelldir" class="form-control"  name="trueswelldir" title="Swell Direction"></select> 
+				<span class="text-right" style="">&nbsp; (Going to) </span>
+				</div>
+				
+		
+        </div>
+		</div>
+		
+		
+			 <div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Water depth (Min) [m]</div>
+               <div class="col-sm-4">
+			   <input type="text" width="5px" class="form-control" size="4" name="waterdepthmin" title="Water Depth (min)" />
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">Water depth (Average) [m] </div>
+                 <div class="col-sm-3">
+				<input type="text" width="5px"  class="form-control" size="4" name="waterdepthavg" title="Water Depth (avg)" />
+				</div>
+			
+			</div>
+			</div>
+			
+			
+			 <div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Ship Heading [deg]</div>
+               <div class="col-sm-4">
+			   <select id="shipheading" class="form-control" name="shipheading" title="Ship Heading" ><option value=""></option></select>
+			   </div>
+			   
+			   <div class="col-sm-2 text-right">Water temp [deg] </div>
+                 <div class="col-sm-3">
+				<input type="text" width="5px" class="form-control" size="4" name="watertemp" title="Water Temp (deg)" />
+				</div>
+			
+			</div>
+			</div>
+			
+			
+			 <div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Distance covered (obs) </div>
+               <div class="col-sm-4" style="display: -webkit-inline-box;">
+			   <input type="text" width="5px" class="form-control" size="4" name="distobs" title="Distance Covered Observed Miles (over ground)" />
+			   <span class="text-right" style="">&nbsp; nm </span>
+			   
+			   </div>
+			   
+			   
+			   
+			   <div class="col-sm-2 text-right">Distance covered (log)	 </div>
+                 <div class="col-sm-3" style="display: -webkit-inline-box;">
+				<input type="text" width="5px" class="form-control" size="4" name="distlog" title="Distance Covered Logged Miles (through water)" />
+				<span class="text-right" style="">&nbsp; nm </span>
+				</div>
+				
+			
+			</div>
+			</div>
+			
+			<div class="row">
+			<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right">Stable Cruising eval	</div>
+               <div class="col-sm-2" style="display: -webkit-inline-box;">
+			   <select id="stabcruis"  class="form-control" name="stabcruis" title="1-10 (10=very stable)"><option value=""></option></select>
+			   
+			   <span class="text-right" style="">&nbsp;(10 = very stable) </span>
+			   </div>
+			   
+			   
+			   
+			
+			</div>
+			</div>
+			<br/>
+			<div class="row">
+		<div class="col-sm-12 col-md-8 col-lg-12">
+			<div class="col-sm-2 text-right" >Position Lat	</div>
+               <div class="col-sm-4" style="display: -webkit-inline-box;">
+			   <select id="latdeg" name="latdeg" class="form-control" style="width:auto !important;" title="Lateral Degrees"><option value=""></option></select>
+			   
+			   &nbsp;<span class="text-right"> deg </span>&nbsp;
+			   
+			   <select id="latmin" name="latmin" class="form-control" style="width:auto !important;" title="Lateral Minutes"><option value=""></option></select>
+			  
+			   &nbsp;<span class=" text-right"> min </span>&nbsp;
+			    
+			   <select id="latsec" name="latsec" class="form-control" style="width:auto !important;" title="Lateral Seconds"><option value=""></option></select>
+			   &nbsp;<span class=" text-right"> sec </span>&nbsp;
+			   
+			  &nbsp; <select id="latdir" name="latdir" class="form-control" style="width:auto !important;" title="Lateral Direction [N/S]">
+                <option value=""></option>
+                <option value="N">N</option>
+                <option value="S">S</option>
+            </select>
+			   </div>
+
+			  
+			
+			<div class="col-sm-1" style="text-align: right;">Position Lon </div>
+               <div class="col-sm-4" style="display: -webkit-inline-box;">
+			   <select id="londeg" name="londeg" class="form-control" style="width:auto !important;" title="Longitudinal Degrees"><option value=""></option></select>
+			   
+			   &nbsp;<span class="text-right"> deg </span>&nbsp;
+			   
+			   
+			   <select id="lonmin" name="lonmin" class="form-control" style="width:auto !important;" title="Longitudinal Minutes"><option value=""></option></select>
+			   
+			   &nbsp;<span class="text-right"> min </span>&nbsp;
+			   
+			 
+			   <select id="lonsec" name="lonsec" class="form-control" style="width:auto !important;" title="Longitudinal Seconds"><option value=""></option></select>
+			   
+			   
+			   &nbsp;<span class="text-right"> sec </span>&nbsp;
+			   
+			   
+			   <select id="londir" name="londir" class="form-control" style="width:auto !important;" title="Longitudinal Direction [E/W]">
+                <option value=""></option>
+                <option value="E">E</option>
+                <option value="W">W</option>
+            </select>
+			   </div>
+			   
+			
+			</div>
+			</div>
+		
+		<br/>
+		
+		
+		
+		
+        
+		
+       
+		
+		<div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">       
+                            <div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+                            </div>
+                            <div class="section_header">
+                            Fuel Consumption (Since last report)
+                            </div>
+				</div>
+				</div>
+				</div>
+		
+    
+  
+		<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+    
+            <!--col width="180">
+            <col width="300">
+            <col width="250">
+            <col width="200"-->
+            <!-- <tr>
+                <th></th>
+                <th>HS Fuel Oil</th>
+                <th>LS Fuel Oil</th>
+                <th>HS MGO</th>
+                <th>LS MGO</th>
+                <th>Sludge</th>
+            </tr> -->
+			
+			<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;">
+			  <div class="col-sm-2"></div>
+			  <div class="col-sm-2">HS Fuel Oil</div>
+			  <div class="col-sm-2">LS Fuel Oil</div>
+			  <div class="col-sm-2">HS MGO</div>
+			  <div class="col-sm-2">LS MGO</div>
+			  <div class="col-sm-2">Sludge</div>
+		</div>	  
+			  
+			
+	
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Sulphur Content [%]</div>
+				
+                <div class="col-sm-2"> 
+				<input class="form-control rit-align" type="text" value="0.00" width="5px" size="4" name="sulconhsfo" title="HSFO Sulphur Content [%]">
+				</div> 
+                 <div class="col-sm-2"> 
+				 <input class="form-control rit-align" type="text" value="0.00" width="5px" size="4" name="sulconlsfo" title="LSFO Sulphur Content [%]">
+				 </div>
+                
+				<div class="col-sm-2"> 
+				<input class="form-control rit-align" type="text" value="0.00" width="5px" size="4" name="sulconhsmgo" title="HS MGO Sulphur Content [%]">
+				</div>
+                <div class="col-sm-2">
+				<input  class="form-control rit-align" type="text" value="0.00" width="5px" size="4" name="sulconlsmgo" title="LS MGO Sulphur Content [%]">
+				</div>
+            </div>
+			
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                 <div class="col-sm-2 text-right">Lower calorific value [kJ/kg]</div>
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" value="0.00" width="5px" size="4" name="lcvhsfo" title="LCV of HSFO [kJ/kg]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" value="0.00" width="5px" size="4" name="lcvlsfo" title="LCV of LSFO [kJ/kg]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" value="0.00" width="5px" size="4" name="lcvhsmgo" title="LCV of HS MGO [kJ/kg]">
+				</div>
+				
+               <div class="col-sm-2">
+				<input  class="form-control rit-align" type="text" value="0.00" width="5px" size="4" name="lcvlsmgo" title="LCV of LS MGO [kJ/kg]">
+				</div>
+				
+            </div>
+            
+			<div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Main Engine [t]</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="mehsfo" title="ME High Sulphur FO Consumption [t]">
+				</div>
+                
+				<div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="melsfo" title="ME Low Sulphur FO Consumption [t]">
+				</div>
+                
+				<div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="mehsmgo" title="ME High Sulphue MGO Consumption [t]">
+				</div>
+                
+				<div class="col-sm-2">
+				<input  class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="melsmgo" title="ME Low Sulphur MGO Consumption [t]">
+				</div>
+            </div>
+			
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Aux Engines [t]</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" value="0.00" size="4" name="aehsfo" title="AE High Sulphur FO Consumption [t]"> 
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" value="0.00" size="4" name="aelsfo" title="AE Low Sulphur FO Consumption [t]">
+				 </div>
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" value="0.00" size="4" name="aehsmgo" title="AE High Sulphur MGO Consumption [t]">
+				 </div>
+                <div class="col-sm-2">
+				<input  class="form-control rit-align" type="text" width="5px" value="0.00" size="4" name="aelsmgo" title="AE Low Sulphue MGO Consumption [t]">
+				 </div>
+            </div>
+			
+            <div class="col-sm-12 col-md-12 col-lg-12">
+			
+                <div class="col-sm-2 text-right">Boiler [t]</div>
+                
+				<div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="bohsfo" title="Boiler High Sulphur FO Consumption [t]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="bolsfo" title="Boiler Low Sulphur FO Consumption [t]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input  class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="bohsmgo" title="Boiler High Sulphur MGO Consumption [t]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="bolsmgo" title="Boiler Low Sulphur MGO Consumption [t]">
+				</div>
+            </div>
+			
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Others [t / m3]</div>
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="othsfo" title="Other Consumption [t]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="otlsfo" title="Other Consumption [t]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="othsmgo" title="Other Consumption [t]">
+				</div>
+				
+                 <div class="col-sm-2">
+				<input class="form-control rit-align" type="text" width="5px" size="4" value="0.00" name="otlsmgo" title="Other Consumption [t]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control rit-align"  type="text" width="5px" size="4" value="0.00" name="otsludge" title="Other Consumption Sludge (E.g. Incinerator)[m3]">
+				</div>
+				</div>
+				
+			</div>
+			</div>	
+			<br/>	
+			
+			<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		
+				<div class="col-sm-12 col-md-12 col-lg-12">
+			  <div class="col-sm-2"></div>
+			  <div class="col-sm-2"></div>
+			  <div class="col-sm-2"></div>
+			  <div class="col-sm-2"></div>
+			  <div class="col-sm-2"></div>
+			  <div class="col-sm-2">Sludge ROB [m3]</div>
+		</div>	 
+				
+            
+            
+				<div class="col-sm-12 col-md-12 col-lg-12">
+			
+                <div class="col-sm-2 text-right">Remaining on Board [t]</div>
+                <div class="col-sm-2">
+				<input class="form-control" type="text" width="5px" size="4" name="robhsfo" title="ROB of HS FO [t]">
+				</div>
+				
+               <div class="col-sm-2">
+				<input class="form-control" type="text" width="5px" size="4" name="roblsfo" title="ROB of LS FO [t]">
+				</div>
+                
+				<div class="col-sm-2">
+				<input class="form-control" type="text" width="5px" size="4" name="robhsmgo" title="ROB of HS MGO [t]">
+				</div>
+				
+                <div class="col-sm-2">
+				<input class="form-control" type="text" width="5px" size="4" name="roblsmgo" title="ROB of LS MGO [t]">
+				</div>
+                
+				<div class="col-sm-2">
+				<input class="form-control" type="text" width="5px" size="4" name="robsludge" title="ROB of Sludge [m3]">
+				</div>
+            </div>
+			
+            </div>
+		</div>
+		<br/>
+		<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		
+         <div class="col-sm-2 text-right">Remaining on Board is Sounding</div>
+				
+                <div class="col-sm-3">
+				<input type="checkbox" name="issoundingrob" title="Check if yes">
+				</div>
+            
+        
+		
+		
+		 <div class="col-sm-2 text-right">ROB Timestamp [UTC] </div>
+				<div id="robtimestampspan" class="col-sm-2" style="display: -webkit-inline-box;">
+                
+                    <input id="robtime" class="form-control" type="text" value="" size="8" title="Date" readonly>
+                    &nbsp; <input type="image" class="calendar_align" id="robcal" src="../img/cal.JPG">
+                    <!--button id="eta_lt_datenaex1" onclick="set_na('eta_lt_date',eta_lt_hour,eta_lt_min)" type="button">Clear</button-->
+                
+				</div>
+				<div class="col-sm-1" style="display: -webkit-inline-box;">
+                <select id="robhour" class="form-control" style="width:auto !important;" name="robhour" title="Hours"><option value=""></option></select>
+                &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                <select id="robmin" class="form-control" style="width:auto !important;" name="robmin" title="Minutes"><option value=""></option></select>
+			</div>
+			
+			</div>
+		</div>
+		
+		<br/>
+    
+			<div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">       
+                            <div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+                            </div>
+                            <div class="section_header">
+                            Electrical Producers and Consumers
+                            </div>
+				</div>
+				</div>
+				</div>
+    
+        
+		<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		
+       
+	   <div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		
+				<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;">
+			  <div class="col-sm-2"> </div>
+			  <div class="col-sm-2">Run Hours[HH:MM]</div>
+			  <div class="col-sm-2">RPM (avg)</div>
+			  <div class="col-sm-2">Power (avg)</div>
+			  <div class="col-sm-2">Cyliner Oil Cons</div>
+			  <div class="col-sm-2">Cyl Oil BN</div>
+			  
+		</div>	
+		
+            <!--col width="180">
+            <col width="300">
+            <col width="250">
+            <col width="200"-->
+            
+            <div class="col-sm-12 col-md-12 col-lg-12">
+			
+                <div class="col-sm-2 text-right">Main Engine</div>
+                <div class="col-sm-1" style="display: -webkit-inline-box;">
+                    
+                    <select id="merh" class="form-control" style="width:auto !important;" name="merh" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="merm" class="form-control" style="width:auto !important;" name="merm" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+				 <div class="col-sm-1">
+				 </div>
+                <div class="col-sm-2">
+				<input type="text" class="form-control" width="5px" size="4" name="merpm" title="RPM">
+				</div>
+				
+                <div class="col-sm-2">
+				<input type="text" class="form-control" width="5px" size="4" name="mepower" title="Avg ME Power [kW]" placeholder="kW">
+				</div>
+				
+                <div class="col-sm-2">
+				<input type="text"  class="form-control" width="5px" size="4" name="mecyloil" title="Cyl Oil Cons [kg]" placeholder="kg">
+				</div>
+				
+                <div class="col-sm-2">
+				<select id="cyloilbn" class="form-control" name="cyloilbn" title="Cylinder Oil BN Number">
+                    <option value=""></option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                </select>
+				</div>
+            </div>
+			
+            
+        
+		</div>
+		</div>
+		
+		</div>
+		</div>
+		<br/>
+       <div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		
+		<div class="col-sm-12 col-md-12 col-lg-12" style="text-align:center;">
+			  <div class="col-sm-2"> </div>
+			  <div class="col-sm-2">Run Hours [HH:MM]</div>
+			  <div class="col-sm-2">Elec Prod [kWh]</div>
+			  <div class="col-sm-2"> </div>
+			  <div class="col-sm-2">Run Hours [HH:MM]</div>
+			  
+			  
+		</div>	
+            
+            <div class="col-sm-12 col-md-12 col-lg-12">
+			
+                <div class="col-sm-2 text-right">Aux Engine 1</div>
+                <!--th><input type="text" width="5px" size="4" name="ae1rh" title="Run Hours" placeholder="HH:MM"></th-->
+                <div class="col-sm-1" style="display: -webkit-inline-box;">
+                    
+                    <select id="ae1rh" style="width:auto !important;" class="form-control" name="ae1rh" title="Hours">
+                        <option value=""></option>
+                    </select>&nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="ae1rm" style="width:auto !important;" class="form-control" name="ae1rm" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+				<div class="col-sm-1"> </div>
+				
+                <div class="col-sm-2">
+				<input type="text" class="form-control" width="5px" size="4" name="ae1prod" title="AE 1 Electrical production [kWh]">
+				</div>
+                
+                <div class="col-sm-2 text-right">Inerting</div>
+                <div class="col-sm-1" style="display: -webkit-inline-box;">
+				
+                    <select id="inerthours" style="width:auto !important;" class="form-control" name="inerthours" title="Hours">
+                        <option value=""></option>
+                    </select>&nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="inertmins" style="width:auto !important;" class="form-control" name="inertmins" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+            </div>
+			
+			
+			
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Aux Engine 2</div>
+                <!--th><input type="text" width="5px" size="4" name="ae2rh" title="Run Hours" placeholder="HH:MM"></th-->
+                <div class="col-sm-1" style="display: -webkit-inline-box;">
+                    
+                    <select id="ae2rh" style="width:auto !important;" class="form-control" name="ae2rh" title="Hours">
+                        <option value=""></option>
+                    </select>&nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="ae2rm" style="width:auto !important;" class="form-control" name="ae2rm" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+				<div class="col-sm-1"> </div>
+                <div class="col-sm-2"> 
+				<input type="text" width="5px" class="form-control" size="4" name="ae2prod" title="AE 2 Electrical production [kWh]">
+				</div>
+                
+                <div class="col-sm-2 text-right">Tank Cleaning</div>
+                <div class="col-sm-1" style="display: -webkit-inline-box;">
+				
+                    <select id="tankcleanhours" style="width:auto !important;" class="form-control" name="tankcleanhours" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="tankcleanmins" style="width:auto !important;" class="form-control" name="tankcleanmins" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+            </div>
+			
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Aux Engine 3</div>
+                <!--th><input type="text" width="5px" size="4" name="ae3rh" title="Run Hours" placeholder="HH:MM"></th-->
+               <div class="col-sm-1" style="display:-webkit-inline-box;">
+                    
+                    <select id="ae3rh" style="width:auto !important;" class="form-control" name="ae3rh" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="ae3rm" style="width:auto !important;" class="form-control" name="ae3rm" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+				<div class="col-sm-1"> </div>
+                <div class="col-sm-2">
+				<input type="text" width="5px" class="form-control" size="4" name="ae3prod" title="AE 3 Electrical production [kWh]">
+				</div>
+				
+                
+                <div class="col-sm-2 text-right">Cargo Heating</div>
+                <div class="col-sm-1" style="display:-webkit-inline-box;">
+                <select id="carheathours" style="width:auto !important;" class="form-control" name="carheathours" title="Hours">
+                    <option value=""></option>
+                </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                <select id="carheatmins"  style="width:auto !important;" class="form-control" name="carheatmins" title="Minutes">
+                    <option value=""></option>
+                </select>
+                </div>
+           </div>
+		   
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Aux Engine 4</div>
+				
+                <!--th><input type="text" width="5px" size="4" name="ae4rh" title="Run Hours" placeholder="HH:MM"></th-->
+               <div class="col-sm-1" style="display:-webkit-inline-box;">
+                    
+                    <select id="ae4rh" style="width:auto !important;" class="form-control" name="ae4rh" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="ae4rm" style="width:auto !important;" class="form-control" name="ae4rm" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+				
+				<div class="col-sm-1"> </div>
+                
+				<div class="col-sm-2">
+				<input type="text" width="5px" class="form-control" size="4" name="ae4prod" title="AE 4 Electrical production [kWh]">
+				</div>
+				
+                
+                <div class="col-sm-2 text-right">Purging</div>
+                <div class="col-sm-1" style="display:-webkit-inline-box;">
+				
+                    <select id="purgehours" style="width:auto !important;" class="form-control" name="purgehours" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="purgemins" style="width:auto !important;" class="form-control" name="purgemins" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+			
+           <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Shaft Gen</div>
+                <!--th><input type="text" width="5px" size="4" name="sgrh" title="Run Hours" placeholder="HH:MM"></th-->
+                <div class="col-sm-1" style="display:-webkit-inline-box;">
+                    
+                    <select id="sgrh" name="sgrh" style="width:auto !important;" class="form-control" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="sgrm" name="sgrm" style="width:auto !important;" class="form-control" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+				 
+				 <div class="col-sm-1"> </div>
+				 
+                 <div class="col-sm-2">
+				 <input type="text" width="5px"  class="form-control" size="4" name="sgprod" title="SG Electrical production [kWh]">
+				 </div>
+				 
+                
+                <div class="col-sm-2 text-right">Discharging</div>
+                <div class="col-sm-1" style="display:-webkit-inline-box;">
+				
+                    <select id="dischargehours" style="width:auto !important;" class="form-control" name="dischargehours" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="dischargemins" style="width:auto !important;" class="form-control" name="dischargemins" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+            </div>
+			
+			 </div>
+			</div>
+			
+			<br/>
+			
+            <div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+		
+			<div class="col-sm-12 col-md-12 col-lg-12">
+			  <div class="col-sm-2"> </div>
+			  <div class="col-sm-2">Run Hours [HH:MM]</div>
+			  <div class="col-sm-4">Elec Cons [kWh]</div>
+			  
+		</div>
+		
+            
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Boiler</div>
+                <!--th><input type="text" width="5px" size="4" name="smrh" title="Boiler Run Hours" placeholder="HH:MM"></th-->
+                <div class="col-sm-1" style="display: -webkit-inline-box;">
+                    
+                    <select id="boirh" style="width:auto !important;" class="form-control" name="boirh" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="boirm" style="width:auto !important;" class="form-control" name="boirm" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+			<br/>
+			
+             <div class="col-sm-12 col-md-12 col-lg-12" style="margin-top:10px;">
+                <div class="col-sm-2 text-right">Shaft Motor</div>
+                <!--th><input type="text" width="5px" size="4" name="smrh" title="SM Run Hours" placeholder="HH:MM"></th-->
+                <div class="col-sm-1" style="display: -webkit-inline-box;">
+                    
+                    <select id="smrh" name="smrh" style="width:auto !important;" class="form-control" title="Hours">
+                        <option value=""></option>
+                    </select> &nbsp; <span style="font-weight:bold"> : </span>&nbsp;
+                    <select id="smrm" name="smrm" style="width:auto !important;" class="form-control" title="Minutes">
+                        <option value=""></option>
+                    </select>
+                </div>
+				
+				<div class="col-sm-1"> </div>
+				
+				<div class="col-sm-2">
+                <input type="text" width="5px" class="form-control" size="4" name="smcons" title="SM Electrical consumption [kWh]">
+				</div>
+				
+            </div>
+			
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Cargo Plant</div>
+                
+				<div class="col-sm-2"> </div>
+                <div class="col-sm-2">
+				<input type="text" width="5px" class="form-control" size="4" name="caplacons" title="Cargo Plant Electrical consumption [kWh]">
+				</div>
+            
+			</div>
+
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Ballast Pumps</div>
+                <div class="col-sm-2"> </div>
+                <div class="col-sm-2">
+				<input type="text" width="5px" class="form-control" size="4" name="balpumpcons" title="Ballast Pumps Electrical consumption [kWh]">
+				</div>
+            
+			</div>
+			
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="col-sm-2 text-right">Reefer Cons</div>
+               <div class="col-sm-2"> </div>
+                <div class="col-sm-2"><input type="text" width="5px" class="form-control" size="4" name="reefercons" title="Reefer Electrical consumption [kWh]">
+				</div>
+            </div>
+			
+        </div>
+		
+		</div>
+		</div>
+		<br/> 
+		<div class="form-group">
+	<div class="col-lg-12" style="text-align: right;">
+    <div id="buttons" align="">
+        <button type="button" class="btn btn-primary" onclick="ValAndSendSeaReport()">Send</button>
+		<button type="reset" class="btn btn-success" >Reset</button>
+    </div>
+	</div>
+	</div>
+	<br/>
+	<br/>
+</form>
+
+</div>
+</div>
+</div>
+
+	<!-- <footer class="main-footer"> -->
+  <!-- <strong> Copyright © 2017 <a href="http://www.solverminds.com" target="_blank">www.solverminds.com</a>.</strong> All rights reserved.  -->
+  <!-- </footer> -->
+
+</div>  <!-- row --> 
+</div>  <!-- page-content-wrapper -->
+</div>  <!-- wrapper --> 
+ <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</body>
+</html>

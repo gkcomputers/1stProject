@@ -1,0 +1,39 @@
+		
+.hide-Progress-overlay
+{
+visibility: hidden  !important;
+opacity:0 !important;
+}
+.show-Progress-overlay.is-visible
+{
+    visibility:visible !important;
+    opacity:1 !important;
+}
+.glassPane
+ {  
+    display :flex;
+    display:-webkit-flex;  
+    min-height: 100%;
+    width: 100%;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 3px;
+    background-color: rgb(255, 255, 255);
+    background-image: linear-gradient(to left, rgb(236, 233, 230), rgb(255, 255, 255));
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    color:white;  
+    opacity:0.8;
+    z-index: 1000;
+}
+.progress-bar
+{
+    top:300px;
+    color:grey!important;
+    height: 50px;  
+    margin: auto !important;
+    background-color:transparent !important;
+}
+
+/*****end**************************/

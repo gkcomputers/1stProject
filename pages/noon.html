@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Noon Report</title>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->                                                                    
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    	<link href="../css/progressbar.css" rel="stylesheet" type="text/css">
+		<script src="../vendor/jquery/jquery.js"></script>
+        <script src="../js/jquery-3.2.1.min.js"></script>
+        <script src="../js/vessel.js"></script>
+        <script src="../js/port.js"></script>
+        <script src="../js/fuel.js"></script>
+        <script src="../js/country.js"></script>
+        <script src="../js/fuelgrade.js"></script>
+        <script src="../js/mailconfig.js"></script>
+        <script src="../js/schedules.js"></script>
+        <script src="../js/noon.js"></script>
+        <script src="../js/rendered.js"></script>
+		<script src="../js/masterreport.js"></script>
+		<script src="../js/fuelcombi.js"></script>
+		<script src="../js/mailaction.js"></script>
+
+</head>
+    <form id="noonform" >		
+		<div id="page-content-wrapper">		
+		<div class="container-fluid">            
+           <div class="row">			
+			<div style="background:white;border: 1px solid #ffffff;box-shadow: 5px 5px 27px #8f8e8e;border-radius: 10px;margin:0 auto;Z-INDEX: 2000; margin-top: -15px;">
+			<div class="col-sm-12" style="font-size:16px;color:#00b6e3;margin-top: 5px;font-weight:bold;background-color: darkblue !important;margin-top: 0px; color:white;padding:5px;border-radius:10px 10px 0 0">
+					
+				<div class="col-sm-3 text-left"  style="padding-top: 10px !important;" > Noon Report </div>
+				<div class="col-sm-6 text-center" >
+	                <span  maxlength="200" style="font-size: 25px !important;"  id="span_vesselname" readonly> 
+	            </div> 
+            </div> 
+		
+	<!--	<div class="row">
+		<div class="col-sm-12" style="margin-top:15px"> 
+		<div class="col-sm-2 text-right">Service <span class="required" style="color:red" >&nbsp;*</span></div> 
+		<div class="col-sm-2" style="padding-right:0px"><input class="form-control" id="nrp_service" list="scheduleslist" onblur="setScheduleList()">
+		<datalist id="scheduleslist" /> 
+	  </div> 
+		
+		<div class="col-sm-2 text-right">Vessel Name<span class="required" style="color:red">&nbsp;*</span></div>
+		<div class="col-sm-2 "><input id="nrp_vessel" class="form-control" list="VesselList" onblur="setVesselCode(this)" ><datalist id="VesselList" /></div>
+		<div class="col-sm-2 text-right">Vessel Code<span class="required" style="color:red">&nbsp;*</span></div>
+		<div class="col-sm-2"><input class="form-control" maxlength="10" id="nrp_vslcode"></div>
+        </div>                                
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-12"> 
+		<div class="col-sm-2 text-right">Voyage Number<span class="required" style="color:red">&nbsp;*</span></div>
+		<div class="col-sm-2" style="padding-right:0px"><input class="form-control" maxlength="10" id="nrp_voynumber"></div>
+		<div class="col-sm-2 text-right">Bound<span class="required" style="color:red">&nbsp;*</span></div>
+		<div class="col-sm-2"><input class="form-control" maxlength="1" id="nrp_bound"></div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-2"></div>
+		</div>
+		</div>
+		-->
+		
+		
+		<div class="row">
+		<div class="col-sm-12" style="margin-top:15px"> 
+		<!--<div class="col-sm-2 text-right">Master's Name</div>
+		<div class="col-sm-2" style="padding-right:0px"><input class="form-control" maxlength="100"  id="nrp_mastername"></div>
+		 <div class="col-sm-2 text-right">IMO Number</div>
+		<div class="col-sm-2"><input class="form-control" maxlength="50"  id="nrp_imnonumber"></div>
+		<div class="col-sm-2 text-right">Call Sign</div>
+		<div class="col-sm-2"><input class="form-control" id="nrp_callsign"></div> -->
+			<div class="col-sm-2 text-right">Last Port<span class="required">&nbsp*</span></div>
+			<div class="col-sm-2" style="padding-right:0px"><input class="form-control" maxlength="150" id="nrp_lastport" list="portList" onblur="setArrPortCode(this)"><datalist id="portList"/>                                      
+                                       </div>
+		<!--<div class="col-sm-2 text-right">country</div>
+		<div class="col-sm-2"><input list="countylist" maxlength="50" class="form-control" id="nrp_country" onblur="setCountryName(this)"><datalist id="countylist"/></div> -->
+			<div class="col-sm-2 text-right">Unlocode<span class="required" style="color:red">&nbsp;*</span></div>
+			<div class="col-sm-2" style="padding-right:0px"><input class="form-control"  maxlength="6" id="nrp_unlocode"></div>
+				<div class="col-sm-2 text-right">IMO Number</div>
+				<div class="col-sm-2"><input class="form-control" maxlength="50" readonly="true"  id="nrp_imnonumber"></div>
+		</div>
+		</div>
+		
+		</br>
+		
+		<div class="row">
+			<div class="col-sm-12"> 
+			<!-- 	<div class="col-sm-2 text-right" >noon position </div>
+		  			<div class="col-sm-1" style="padding-right:16px !important; "><input class="form-control" id="nrp_noonposisiton">
+		  			&nbsp; <span class=" text-right" style="position:absolute; margin-top: -35px; margin-left: 55px;"> (Long)</span></div> -->
+		  <!-- <div class="col-sm-2"></div> -->
+		  		<!-- <div class="col-sm-1">
+		  			<input class="form-control" style="margin-left: 12px !important;" id="nrp_noonposisitontwo"> 
+		  			&nbsp; <span class=" text-right" style="position:absolute; margin-top: -36px; margin-left: 68px;"> (Lat)</span>
+		  		</div> -->
+				<div class="col-sm-2 text-right">noon date<span class="required">&nbsp*</span></div>
+				<div class="col-sm-2" style="padding-right:0px">
+					<input class="form-control" id="nrp_noondate" type="date">
+				</div>
+				<div class="col-sm-1" style="padding-right:0px;">
+					<input class="form-control" id="nrp_noondatetime" onchange="validateTime(this);" readonly="true" 
+             		onkeypress="return isTime(event)"  value="12:00" ondrop="return false;" onpaste="return false;" maxlength="5" > 
+					&nbsp; <span class=" text-right" style="position:absolute; margin-top: -30px; margin-left: 73px;"> (GMT)</span>
+				</div>
+
+				<div class="col-sm-2 text-right">Latitude </div>&#160;&#160; &#160;
+				
+				<div class="col-sm-3">
+		        <input type="radio" name="nrp_latdir" id="nrp_latdir" value="N"  checked="checked" /> N &#160;
+				<input type="radio" name="nrp_latdir"  id="nrp_latdir" value="S" /> S &#160;&#160; 
+
+				<input type="text" class="form-control" name="latdd" id="nrp_latdd" onpaste="return false;"  onKeyPress="return checklatlong(event,value,this)" onInput="checkLengthlat(this)" maxlength="2" placeholder="DD" style="display: inline-block; width: 24%;"> <sup class="super">&deg;</sup>
+
+				<input class="form-control" name="nrp_latmm" id="nrp_latmm" type="text" onpaste="return false;"  onKeyPress="return check(event,value,this)" maxlength="5"  onInput="checkLength(this)" onchange="return validateDecimal(this)" placeholder="MM.SS" style="display: inline-block; width: 31%;"> <sup class="super">'</sup>
+
+			</div>
+															 
+			</div>
+		</div>		
+		<div class="row">
+			<div class="col-sm-12" style="margin-top: -15px"> 
+				<div class="col-sm-2 text-right">Off set from UTC <span style="font-size: 10px;">(East +, West -) </span> </div>
+				<div class="col-sm-1" style="padding-right:0px;">
+	                                         <select class="form-control" id="nrp_utcone">
+	                                         <option>+</option>
+	                                         <option>-</option>
+	                                         </select>
+				</div>
+		     	<div class="col-sm-1" style="padding-right:0px;"> <input class="form-control" style="width:83% !important;" id="nrp_utctwo" onkeypress="return isTime(event)" onchange="validateTime(this);" 
+		        ondrop="return false;" onpaste="return false;" value="00:00" maxlength="5" > 
+	         	</div>
+
+	         	<div class="col-sm-3 text-right">Longitude  </div>
+			
+				<div class="col-sm-3">
+
+				<input type="radio" name="nrp_longdir" id="nrp_longdir" value="E" checked="checked" /> E &#160;
+				<input type="radio" name="nrp_longdir"  id="nrp_longdir" value="W" /> W &#160;
+
+				<input type="text" class="form-control" name="nrp_longdd" id="nrp_longdd" onpaste="return false;" onKeyPress="return checklatlong(event,value,this)"  onInput="checkLengthlong(this)" maxlength="3" placeholder="DDD" style="display: inline-block; width: 24%;"> <sup class="super">&deg;</sup>
+
+					<input class="form-control" name="nrp_longmm" id="nrp_longmm" type="text" onpaste="return false;"  onKeyPress="return check(event,value,this)" maxlength="5"  onInput="checkLength(this)" onchange="return validateDecimal(this)" placeholder="MM.SS" style="display: inline-block; width: 31%;"> <sup class="super">'</sup>
+
+			</div>
+	         	
+			</div>
+	    </div>
+	    <div class="row">
+			<div class="col-sm-12"> 
+			
+			</div>
+		</div>
+
+			<div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12" style="margin-top:10px">       
+                            <div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+                            </div>
+                            <div class="section_header">
+                           Last Report Details
+                            </div>			
+						</div>
+					</div>
+			</div>	
+		
+		<div class="col-sm-12" > 
+		<div class="col-sm-2"></div>
+		<div class="col-sm-2 text-center" style="color:#1794b2; font-weight:bold; font-size:16px">Since Last Report</div>
+			<div class="col-sm-2 text-center" style="color:#1794b2; font-weight:bold; font-size:16px">Since BOSP</div>
+		<div class="col-sm-2"></div>
+	<!-- <div class="col-sm-2 text-center" style="color:#1794b2; font-weight:bold; font-size:16px">Since Last Report</div> -->
+		<!-- <div class="col-sm-2 text-center" style="color:#1794b2; font-weight:bold; font-size:16px">Since COSP</div> -->
+		<!-- <div class="col-sm-2"></div> -->
+		
+		</div>	
+		
+		<div class="row">
+		<div class="col-sm-12" style="margin-top:10px"> 
+		<div class="col-sm-2 text-right">distance <span style="font-size: 10px;"> (NM)</span></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_distance"></div>
+		<div class="col-sm-2"><input class="form-control rit-align"  onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_distanceone"></div>
+		
+		<div class="col-sm-2 text-right">wind <span style="font-size: 10px;">(Dir / Force) </span> </div>
+		<!-- <div class="col-sm-2"><input class="form-control" id="nrp_winddir"></div> -->
+		
+		<div class="col-sm-2"> <select id="nrp_winddir" class="form-control" name="nrp_winddir" title="nrp_winddir" >
+										<option value=""></option>
+										<option value="N">N</option>
+										<option value="NNE">NNE</option>
+										<option value="NE">NE</option>
+										<option value="ENE">ENE</option>
+										<option value="E">E</option>
+										<option value="ESE">ESE</option>
+										<option value="SE">SE</option>
+										<option value="SSE">SSE</option>
+										<option value="S">S</option>
+										<option value="SSW">SSW</option>
+										<option value="SW">SW</option>
+										<option value="WSW">WSW</option>
+										<option value="W">W</option>
+										<option value="WNW">WNW</option>
+										<option value="NW">NW</option>
+										<option value="NNW">NNW</option>
+										</select> 
+		</div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_windforce"></div>
+		</div>
+		</div>
+		
+	
+		<div class="row">
+		<div class="col-sm-12">
+	 		<div class="col-sm-2 text-right">time elapsed <span style="font-size: 10px;">(HRS)</span></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onblur="calculateEstConsp(this)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_timeelapsone"></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_timeelapstwo"></div>
+		
+		<div class="col-sm-2 text-right">swell <span style="font-size: 10px;">(Dir / Ht (m)) </span> </div>
+		<!-- <div class="col-sm-2"><input class="form-control" id="nrp_swellsone"></div> -->
+		
+		<div class="col-sm-2"> <select id="nrp_swellsone" class="form-control" name="nrp_swellsone" title="nrp_swellsone" >
+										<option value=""></option>
+										<option value="N">N</option>
+										<option value="NNE">NNE</option>
+										<option value="NE">NE</option>
+										<option value="ENE">ENE</option>
+										<option value="E">E</option>
+										<option value="ESE">ESE</option>
+										<option value="SE">SE</option>
+										<option value="SSE">SSE</option>
+										<option value="S">S</option>
+										<option value="SSW">SSW</option>
+										<option value="SW">SW</option>
+										<option value="WSW">WSW</option>
+										<option value="W">W</option>
+										<option value="WNW">WNW</option>
+										<option value="NW">NW</option>
+										<option value="NNW">NNW</option>
+										</select> 
+		</div>
+		
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_swelltwo"></div>
+		
+		</div>
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-12">
+	 		<div class="col-sm-2 text-right">average speed <span style="font-size: 10px;">(Knots)</span></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_avgspeedone"></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_avgspeedtwo"></div>
+		
+		<div class="col-sm-2 text-right">current <span style="font-size: 10px;">(Dir / kts)</span> </div>
+		<!-- <div class="col-sm-2"><input class="form-control" id="nrp_currentone"></div> -->
+		<div class="col-sm-2"> <select id="nrp_currentone" class="form-control" name="nrp_currentone" title="nrp_currentone" >
+										<option value=""></option>
+										<option value="N">N</option>
+										<option value="NNE">NNE</option>
+										<option value="NE">NE</option>
+										<option value="ENE">ENE</option>
+										<option value="E">E</option>
+										<option value="ESE">ESE</option>
+										<option value="SE">SE</option>
+										<option value="SSE">SSE</option>
+										<option value="S">S</option>
+										<option value="SSW">SSW</option>
+										<option value="SW">SW</option>
+										<option value="WSW">WSW</option>
+										<option value="W">W</option>
+										<option value="WNW">WNW</option>
+										<option value="NW">NW</option>
+										<option value="NNW">NNW</option>
+										</select> 
+		</div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_currenttwo"></div>
+		
+		</div>
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-12">
+	 		<div class="col-sm-2 text-right">Average RPM </div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_avgrpmone"></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_avgrpmtwo"></div>
+		
+		
+		<div class="col-sm-2 text-right"> 	sea/ air temp <span style="font-size: 10px;">(deg C) </span> </div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" maxlength="15" value="0.00" id="nrp_airone"></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" maxlength="15" value="0.00" id="nrp_airtwo"></div>		
+		</div>
+		</div>
+		
+		
+		<div class="row">
+		<div class="col-sm-12">
+	 		<div class="col-sm-2 text-right">average slip <span style="font-size: 10px;">(%)</span> </div>
+		<div class="col-sm-2"><input class="form-control rit-align" 
+onkeypress="return percentageValidation(this,event)"  onkeyup="percentageValidUp(this)" 
+									maxlength="6"
+		 onchange="return validateDecimal(this)" value="0.00" id="nrp_avgslipone"></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" value="0.00" id="nrp_avgsliptwo"></div>
+		
+		
+		<div class="col-sm-2 text-right">seas <span style="font-size: 10px;"> (m)</span> </div>
+		<div class="col-sm-4"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_seas"></div>
+		
+		
+		
+		</div>
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-12">
+	 		<div class="col-sm-2 text-right">log distance <span style="font-size: 10px;"> (NM) </span> </div>
+		<div class="col-sm-2"><input class="form-control rit-align"  onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_lgdistone"></div>
+		<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 id="nrp_lgdisttwo"></div>
+		
+		
+		
+		<div class="col-sm-2 text-right"> 	Barometric Pressure  <span style="font-size: 10px;">  </span></div>
+		<div class="col-sm-4 "> <input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 style="text-align:right" id="nrp_pressure"> </div>
+		
+		
+		</div>
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-12">
+		
+		<div class="col-sm-2 text-right">distance to go <span style="font-size: 10px;"> (NM) </span> </div>
+		<div class="col-sm-4"><input class="form-control rit-align" id="nrp_dsitancetogo" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00></div>
+		
+	 		<div class="col-sm-2 text-right">ME Power  <span style="font-size: 10px;"> (KW) </span></div>
+		<div class="col-sm-4"><input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;" onpaste="return false;" maxlength="15" value=0.00 style="text-align:right" id="nrp_mepower"></div>
+		
+		
+		
+		</div>
+		</div>
+		
+		<div class="row">
+		<div class="col-sm-12">
+		<div class="col-sm-2 text-right">shaft gen power  <span style="font-size: 10px;"> (KW) </span></div>
+		<div class="col-sm-4"><input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;" onpaste="return false;"  maxlength="15" value=0.00 style="text-align:right" id="nrp_genpower"></div>
+		
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-xs-12" style="margin-top:10px;margin-bottom:15px;">       
+                            <div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+                            </div>
+                            <div class="section_header">
+                          Next Port Details
+                            </div>
+				</div>
+				</div>
+		
+		<div class="row">
+		<div class="col-sm-12">
+	 		<div class="col-sm-2 text-right">next port</div>
+		<div class="col-sm-3"><input class="form-control" id="nrp_nxtport" style="width:103%;"  list="portList" onblur="setArrPortCode2(this)"></div>
+		<!--<div class="col-sm-1 text-right"> 	country </div>
+		<div class="col-sm-3"><input list="countylist" class="form-control" id="nrp_nextcountry" onblur="setCountryName_Next(this)">
+		<datalist id="countylist"/></div>
+		<div class="col-sm-1 text-right"> 	 	Unlocode  </div>
+		<div class="col-sm-2 "><input class="form-control"  maxlength="50" id="nrp_unlocodeone"></div> -->
+		<div class="col-sm-2 text-right">  	ETA next port </div>
+		<div class="col-sm-2" style="padding-right:0px;"><input class="form-control" id="nrp_etanxtport" type="date"></div>
+		<div class="col-sm-1"><input class="form-control" id="nrp_etanxtportone" 
+                                                                     onchange="validateTime(this);"
+                                                                     onkeypress="return isTime(event)"  style="width:110%;"  ondrop="return false;" onpaste="return false;" value="00:00" maxlength="5" > </div>
+		</div>
+		</div>
+		
+		<div class="form-group">
+            <div class="row">
+                <div class="col-xs-12" style="margin-top:10px">       
+                    <div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;"></div>
+                    <div class="section_header">Fuel Details</div>			
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12" style="padding:18px; width:99%; margin-left:7px;">
+                <div class="panel panel-info highlighter">
+                <div class="panel-body" style="padding:6px">
+                
+                <table id="porttable" class="table table-bordered" style="margin-left:8px;">
+                    <thead>
+                         <tr>
+                            <th class="text-center">FUEL TYPE-GRADE</th>
+                            <th class="text-center">ME CONSP <span style="font-size: 10px;"> (MT) (Since last report)</span> </th>
+                            <th class="text-center">AE CONSP  <span style="font-size: 10px;">(MT)</span> <span style="font-size: 10px;">(Since last report)</span> </th>
+                            <th class="text-center"> BOILER CONSP  <span style="font-size: 10px;">(MT)</span> <span style="font-size: 10px;">(Since last report)</span>  </th>
+                            <th class="text-center"> TOTAL CONSP<span style="font-size: 10px;"> (MT)</span></th>
+                            <th class="text-center"> ESTIMATED CONSP <span style="font-size: 10px;"> (in 24 hrs)</span> </th>
+                            <th class="text-center"> BROB at 'NOON'  <span style="font-size: 10px;">(MT)</span> </th>
+                            
+                         </tr>
+                    </thead>
+                     <tbody >
+                        
+
+                    </tbody>
+                </table>
+			
+            </div>
+
+            </div>
+			</div>
+		</div>
+
+		  
+                  
+        <!-- /.row -->     
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12" style="padding:0 30px">
+                			<div class="form-group">
+                    <div class="row">
+                              
+                            <div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+                            </div>
+                            <div class="section_header">
+                          Remarks
+                            </div>				
+				</div>
+				</div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+
+                                <tbody>
+                                    <tr>
+                                        <td><textarea class="form-control1" rows="14" cols="50" id="nrp_remarks"></textarea></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+<br/>
+        <!-----------/buttons-------------->
+        <!-- /.row -->
+        <a href="" id="return-to-top"> <i class="fa fa-chevron-up"></i> </a>
+        <div class="form-group">
+            <div class="col-lg-12" style="text-align: right;">
+                <!--<button type="button" class="btn btn-primary" onclick="return sendAction('nrp')">Send</button> -->
+                <!--<button type="button" class="btn btn-primary" id="saveFile" onclick="lowDBvalidation();">Save</button> -->
+                <button type="button" class="btn btn-success" id="nrp_sendMail" onclick="mailSends()"> <i class="fa fa-paper-plane-o"> </i> Send
+                </button>
+                <button type="reset" class="btn btn-danger" > <i class="fa fa-undo"> </i>  Reset</button>
+            </div>
+        </div>
+		<br/>
+		<br/>
+            </form>	
+		
+			</div>
+			<!-- <footer class="main-footer"> -->
+  <!-- <strong> Copyright © 2017 <a href="http://www.solverminds.com" target="_blank">www.solverminds.com</a>.</strong> All rights reserved.  -->
+  <!-- </footer>	 -->
+			</div>			
+			</div>		
+ </div>
+ 
+<div class="modal fade" id="modalCompose">
+        <div class="modal-dialog" style="width: 636px">
+            <div class="modal-content">
+                <div class="modal-header modal-header-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-envelope"></span> Compose Mail</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputFrom">
+                                <span class="glyphicon glyphicon-user"></span>From</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputFrom">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputTo">
+                                <span class="glyphicon glyphicon-user"></span>To</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputTo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="ccTo">
+                                <span class="glyphicon glyphicon-user"></span>CC</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="ccTo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputSubject">
+                                <span class="glyphicon glyphicon-list-alt"></span>Subject</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputSubject" placeholder="subject">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="no-space-break col-sm-2" for="inputAttach">
+                                <span class="fa fa-paperclip"></span>Attachment</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputAttach" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputBody">
+                                <span class="glyphicon glyphicon-list"></span>text</label>
+                            <div class="col-sm-10">
+                            	<div class="table-responsive" >
+                            	  	<table class="table table-striped table-bordered table-hover">
+                            	  		<tbody>
+												<tr>
+													<td>
+                                						<textarea class="form-control1" style="background-color: #eeeeee !important" maxlength="500" rows="3" id="inputBody"></textarea>
+                                					</td>
+												</tr>
+										</tbody>
+                                	</table>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="ModelSend" class="btn btn-primary" onclick="MailAction('noonform')">Send
+                        <i class="fa fa-arrow-circle-right fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hide-Progress-overlay show-Progress-overlay">
+            <div class="glassPane">
+                <div class="progress-bar">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                    <!--md-progress-circle mode="indeterminate" color="primary"></md-progress-circle-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+          $(document).ready(function () {
+
+        var info = (db.get('vesselinfo').value());
+        document.getElementById("span_vesselname").innerHTML=info[0].vslname;
+        $('#nrp_imnonumber').val(info[0].imodetails);
+        getFueldataTable();  
+        setports();
+    });
+
+          function setports(){
+          	var myeosp = db.get('ports').value();
+            var options = '';
+        	console.log('size'+myeosp.length);
+    	 	for (var i = 0; i < myeosp.length; i++){
+    	 		   	options += '<option value="'+myeosp[i].portname+'~~'+myeosp[i].portcode+'" />';
+    	 		   	
+    	 			document.getElementById('portList').innerHTML = options;  
+    	 	
+			}
+     
+          }
+          
+
+    </script>
+
+<script type="text/javascript">
+
+    // $(document).ready(function () {
+    //     var info = (db.get('vesselinfo').value());
+    //     document.getElementById("span_vesselname").innerHTML=info[0].vslname;
+    //     addOption_list();
+    // });
+
+	function lowDBvalidation(){
+		//if(return sendAction('nrp')){
+			saveAndSendAction("save")
+		//}
+	}
+
+
+	function mailSends(){
+
+		if(bdnNOONsavevalidation()){
+		 saveAndSendAction("sendMail")
+	     }
+	}
+
+	 function bdnNOONsavevalidation(){
+	 	console.log('inside of bdnNOONsavevalidation');
+            if($('#nrp_lastport').val()=="") {
+                alert("Kindly Enter the Last Port");
+                document.getElementById('nrp_lastport').focus();
+                return false;
+            }
+            else if($('#nrp_unlocode').val()=="")  {
+                alert("Kindly Enter the UnLoc Code");
+                document.getElementById('nrp_unlocode').focus();
+                return false;
+            }
+            else if($('#nrp_noondate').val()=="")  {
+                alert("Kindly Enter the Noon Date");
+                document.getElementById('nrp_noondate').focus();
+                return false;
+            }
+             else{
+                return true;
+            }
+  }
+
+function saveAndSendAction(type) {
+			var noonReportArray = [];
+			
+			var fuelArray=[];
+
+			 var table = document.getElementById("porttable");
+            for (var i = 1, row; row = table.rows[i]; i++) {
+
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    if (j == 0) {
+                        var fuel = ($(col).find("input").val());
+                    }
+                    if (j == 1) {
+                        var bunstem = ($(col).find("input").val());
+                    }
+                    if (j == 2) {
+                        var aeConsp = ($(col).find("input").val());
+                    }
+                    if(j == 3){
+                    	var boilerConsp = ($(col).find("input").val());
+                    }
+                    if(j == 4){
+                    	var TotalConsp = ($(col).find("input").val());
+                    }
+                    if(j == 5){
+						var estConsp = ($(col).find("input").val());
+                    }
+                    if(j == 6){
+						var brob = ($(col).find("input").val());
+                    }
+                }
+                fuelArray.push({ "fuel": fuel, "bunstem": bunstem, "aeConsp": aeConsp,"boilerConsp":boilerConsp,"TotalConsp":TotalConsp,"brob":brob,"estConsp":estConsp});
+
+            }
+
+            var scheduledet=db.get('vesselinfo').value();
+            var nnrp_etanxtportone;
+            if($('#nrp_etanxtport').val()==''){
+            	nnrp_etanxtportone='';
+            } else{
+            	nnrp_etanxtportone=$('#nrp_etanxtportone').val();
+            }
+            var nrp_latmm=$.trim($('#nrp_latmm').val())=="" ? "0":$('#nrp_latmm').val();
+            var nrp_latdd=$.trim($('#nrp_latdd').val())==""? "0" : $('#nrp_latdd').val();
+            var nrp_longdd=$.trim($('#nrp_longdd').val())=="" ? "0" : $('#nrp_longdd').val();
+            var nrp_longmm=$.trim($('#nrp_longmm').val())=="" ? "0" : $('#nrp_longmm').val();
+
+
+            noonReportArray={"nrp_noondate":$('#nrp_noondate').val(),"nrp_noondatetime":$('#nrp_noondatetime').val(),"nrp_utcone":$('#nrp_utcone').val(),"nrp_lastport":$('#nrp_lastport').val(), "nrp_unlocode":$('#nrp_unlocode').val(),"nrp_noonposisiton":$('#nrp_noonposisiton').val(),"nrp_noonposisitontwo":$('#nrp_noonposisitontwo').val(),"nrp_utctwo":$('#nrp_utctwo').val(),"nrp_remarks":$('#nrp_remarks').val(),"nrp_distance":$('#nrp_distance').val(),"nrp_distanceone":$('#nrp_distanceone').val(),"nrp_dsitancetogo":$('#nrp_dsitancetogo').val(),"nrp_winddir":$('#nrp_winddir').val(),"nrp_windforce":$('#nrp_windforce').val(),"nrp_timeelapsone":$('#nrp_timeelapsone').val(),"nrp_timeelapstwo":$('#nrp_timeelapstwo').val(),"nrp_swellsone":$('#nrp_swellsone').val(),"nrp_swelltwo":$('#nrp_swelltwo').val(),"nrp_avgspeedone":$('#nrp_avgspeedone').val(),"nrp_avgspeedtwo":$('#nrp_avgspeedtwo').val(),"nrp_currentone":$('#nrp_currentone').val(),"nrp_currenttwo":$('#nrp_currenttwo').val(),"nrp_avgrpmone":$('#nrp_avgrpmone').val(),"nrp_avgrpmtwo":$('#nrp_avgrpmtwo').val(),"nrp_seas":$('#nrp_seas').val(),"nrp_avgslipone":$('#nrp_avgslipone').val(),"nrp_avgsliptwo":$('#nrp_avgsliptwo').val(),"nrp_airone":$('#nrp_airone').val(),"nrp_airtwo":$('#nrp_airtwo').val(),"nrp_lgdistone":$('#nrp_lgdistone').val(),"nrp_lgdisttwo":$('#nrp_lgdisttwo').val(),"nrp_mepower":$('#nrp_mepower').val(),"nrp_genpower":$('#nrp_genpower').val(),"nrp_pressure":$('#nrp_pressure').val(),"nrp_nxtport":$('#nrp_nxtport').val(),"nrp_etanxtport":$('#nrp_etanxtport').val(),"nrp_service" : scheduledet[0].service,
+                "nrp_vslcode" : scheduledet[0].vslcode,"nrp_voynumber": '',"nrp_bound":'',"nrp_mastername":'',
+                 "nrp_imnonumber":scheduledet[0].imodetails,"nrp_truecourse":'',"nrp_unlocodeone":'',
+                 "nrp_etanxtportone":nnrp_etanxtportone,"nrp_callsign":'',"nrp_latdir":$("input[name='nrp_latdir']:checked").val(),"nrp_latdd":nrp_latdd,"nrp_latmm":nrp_latmm,"nrp_longdir":$("input[name='nrp_longdir']:checked").val(),"nrp_longdd":nrp_longdd,"nrp_longmm":nrp_longmm,"fueldetails" : fuelArray};           
+           
+
+            
+            // db1.get('maildata').nth(0).assign(noonReportArray).value();
+            // db1.write();
+
+            db1.get('maildata').remove().write();
+            db1.defaults({ maildata: [{}] }).write();
+            db1.get('maildata').push(noonReportArray).write();
+
+            var maximum = 100000;
+         	var minimum = 100;
+         	var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+          	document.getElementById("inputSubject").value = scheduledet[0].vslcode+" Noon Report"+randomnumber+".json";
+ 			document.getElementById("inputAttach").value = scheduledet[0].vslcode+" Noon Report"+randomnumber+".json";
+            
+           		var maildetail = (db.get('sysconfig').value());
+
+           		if(maildetail[0].manuelMail.toString()=="Manual"){
+
+                    var folder="/"+scheduledet[0].vslcode+" Noon Report"+randomnumber+".json";
+                    downloadJson(folder);
+                    var bodycontent="Noon Report attachment : "+scheduledet[0].vslcode+" Noon Report"+randomnumber+".json";
+
+                    if(maildetail[0].vesselemail.length>0){
+                        console.log('inside cc');
+                        window.location.href = "mailto:" + maildetail[0].to + "?cc="+ maildetail[0].vesselemail +"&subject=" + scheduledet[0].vslcode+" Noon Report"+randomnumber+".json" + 
+                        "&body="+bodycontent;
+                    } else if(maildetail[0].to.length>0){
+                        window.location.href = "mailto:" + maildetail[0].to + "?subject=" + scheduledet[0].vslcode+" Noon Report"+randomnumber+".json" + 
+                        "&body="+bodycontent;      
+                    } else{
+                        window.location.href = "mailto:ENTER MAIL" + "?subject=" + scheduledet[0].vslcode+" Noon Report"+randomnumber+".json" + 
+                        "&body="+bodycontent;   
+                    }
+                    
+                    setTimeout(function() { masterFieldClear('noonform'); }, 5000);
+                    
+                } else{
+	                $('#modalCompose').modal('show');                
+	                console.log(maildetail);
+	                $("#inputFrom").val(maildetail[0].from);
+	                $("#inputTo").val(maildetail[0].to);
+	                $("#ccTo").val(maildetail[0].vesselemail);
+	                $('#inputBody').val($('#nrp_remarks').val());
+            }
+        }
+
+
+
+function downloadJson(filename){
+
+        const downloadsFolder = require('downloads-folder');
+        var download=downloadsFolder()+filename;    
+        console.log(download);
+
+        const path = require('path');
+        const dbpath = path.join(process.env.APPDATA + '/SVMIBS/Maildetails.json'); 
+         console.log('File '+dbpath);
+        
+        var copyFile = require('quickly-copy-file');
+
+        copyFile(dbpath, download, function(error) {
+          if (error) return console.error(error);
+          console.log('File was copied!')
+        });
+
+
+}
+
+ </script>
+<!-- /#wrapper -->
+  <!--  <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script> -->
+<!-- jQuery -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

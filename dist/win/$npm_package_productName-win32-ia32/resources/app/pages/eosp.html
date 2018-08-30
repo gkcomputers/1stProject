@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>EOSP Report</title>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<script src="../vendor/jquery/jquery.js"></script>
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<!-- <script src="../js/vessel.js"></script> -->
+	<!-- <script src="../js/port.js"></script> -->
+	<!-- <script src="../js/fuel.js"></script> -->
+	<!-- <script src="../js/fuelgrade.js"></script> -->
+	<!-- <script src="../js/country.js"></script> -->
+	<script src="../js/mailconfig.js"></script>
+<!-- 	<script src="../js/schedules.js"></script> -->
+	<script src="../js/eosp.js"></script>
+	<script src="../js/fuelcombi.js"></script>
+	<script src="../js/rendered.js"></script>
+	<script src="../js/masterreport.js"></script>
+	<script src="../js/mailaction.js"></script>
+
+
+	<!-- <script type="text/javascript" src="../js/seareport.js"></script> -->
+	<!-- <script type="text/javascript" src="../js/helpers.js"></script> -->
+	<!-- <script type="text/javascript" src="../js/json2.js"></script> -->
+	<!-- <script type="text/javascript" src="../js/Ports.min.json.js"></script> -->
+	<!-- <script type="text/javascript" src="../js/datechooser.js"></script> -->
+
+	<script type="text/javascript">
+
+          $(document).ready(function () {
+
+          	
+          	
+        var info = (db.get('vesselinfo').value());
+        document.getElementById("span_vesselname").innerHTML=info[0].vslname;
+        $('#eop_imonum').val(info[0].imodetails);
+        getFueldataTable();  
+        setports();
+    });
+
+          function setports(){
+          	var myeosp = db.get('ports').value();
+            var options = '';
+        	console.log('size'+myeosp.length);
+    	 	for (var i = 0; i < myeosp.length; i++){
+    	 		   	options += '<option value="'+myeosp[i].portname+'~~'+myeosp[i].portcode+'" />';
+    	 		   	
+    	 			document.getElementById('portList').innerHTML = options;  
+    	 	
+			}
+     
+          }
+          
+
+    </script>
+
+
+</head>
+<form id="eospform">
+	<div id="page-content-wrapper">
+
+		<div class="container-fluid">
+
+			<div class="row">
+
+				<div style="background:white;border: 1px solid #ffffff;box-shadow: 5px 5px 27px #8f8e8e;border-radius: 10px;margin:0 auto;Z-INDEX: 2000; margin-top: -15px;">
+					<div class="col-sm-12" style="font-size:16px;color:#00b6e3;margin-top: 5px;font-weight:bold;background-color: darkblue; margin-top: 0px; color:white;padding:5px;border-radius:10px 10px 0 0">
+
+						<div class="col-sm-3 text-left" style="padding-top: 7px !important">
+					EOSP Report </div>
+
+					<div class="col-sm-6 text-center" >
+						<span id="span_vesselname" maxlength="200" style="font-size: 25px"></span>
+					</div>
+				    
+				    </div>
+					<div style="margin-top: 50px">
+
+						<div class="row">
+							<div class="col-sm-12" style="margin-top:10px">
+								<div class="col-sm-2 text-right">Arrival Port
+									<span class="required" style="color:red">&nbsp;*</span>
+								</div>
+								<div class="col-sm-3">
+									<input class="form-control" id="eop_arrivalport" onchange="onPortcodeselect()" maxlength="150" list="portList" >
+									<datalist id="portList" />
+								</div>
+								<div class="col-sm-2"><input class="form-control" maxlength="5" id="eop_unlcode"></div>
+								<div class="col-sm-2 text-right">IMO Number</div>
+								<div class="col-sm-2">
+									<input class="form-control" maxlength="50" readonly="true" id="eop_imonum">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-12" style="margin-top:10px">
+									<div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+									</div>
+									<div class="section_header">
+										Time Stamp
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="form-group">
+							<div class="row">
+
+								<div class="col-sm-12" style="margin-top: 10px;">
+									<div class="col-sm-2 text-right">EOSP date
+										<span class="required" style="color:red">*</span>
+									</div>
+									<div class="col-sm-2" style="padding-right:0px">
+										<input class="form-control" id="eop_eosp" type="date">
+									</div>
+
+									<div class="col-sm-1">
+										<input class="form-control" id="eop_eosptime" style="width:108%;" onkeypress="return isTime(event)" onchange="validateTime(this);"
+										 ondrop="return false;" onpaste="return false;" value="00:00" maxlength="5">
+									</div>
+
+									<div class="col-sm-3 text-right"> EOSP position
+										<span class="required" style="color:red"></span>
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" id="eop_eopsposition">
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" id="eop_eopsposition1">
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-12" style="margin-top:10px">
+									<div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+									</div>
+									<div class="section_header">
+										Last Report Details
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-12" style="margin-top:20px">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-2 text-center" style="color:#1794b2; font-weight:bold; font-size:16px">Since Last Report</div>
+							<div class="col-sm-2 text-center" style="color:#1794b2; font-weight:bold; font-size:16px">Since BOSP</div>
+							<div class="col-sm-2"></div>
+							<!-- <div class="col-sm-2 text-center" style="color:#1794b2; font-weight:bold; font-size:16px">Since Last Report</div> -->
+							<!-- <div class="col-sm-2 text-center" style="color:#1794b2; font-weight:bold; font-size:16px">Since COSP</div> -->
+							<!-- <div class="col-sm-2"></div> -->
+
+							<!-- </div> -->
+
+
+
+							<div class="row">
+								<div class="col-sm-12" style="margin-top:10px">
+									<div class="col-sm-2 text-right">distance
+										<span style="font-size: 10px;"> (NM)</span>
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_distance">
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_distance1">
+									</div>
+
+									<div class="col-sm-2 text-right">wind
+										<span style="font-size: 10px;"> (Dir / Force)</span>
+									</div>
+									<!-- <div class="col-sm-2"><input class="form-control" id="eop_winddir"></div> -->
+									<div class="col-sm-2">
+										<select id="eop_winddir" class="form-control" name="eop_winddir" title="eop_winddir">
+											<option value=""></option>
+											<option value="N">N</option>
+											<option value="NNE">NNE</option>
+											<option value="NE">NE</option>
+											<option value="ENE">ENE</option>
+											<option value="E">E</option>
+											<option value="ESE">ESE</option>
+											<option value="SE">SE</option>
+											<option value="SSE">SSE</option>
+											<option value="S">S</option>
+											<option value="SSW">SSW</option>
+											<option value="SW">SW</option>
+											<option value="WSW">WSW</option>
+											<option value="W">W</option>
+											<option value="WNW">WNW</option>
+											<option value="NW">NW</option>
+											<option value="NNW">NNW</option>
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_windforce">
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="col-sm-2 text-right">time elapsed
+										<span style="font-size: 10px;">(HRS)</span>
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_timeelapsed1">
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_timeelapsed2">
+									</div>
+
+									<div class="col-sm-2 text-right">swell
+										<span style="font-size: 10px;">(Dir / Ht (m))</span>
+									</div>
+									<!-- <div class="col-sm-2"><input class="form-control" id="eop_swelldir1"></div> -->
+
+									<div class="col-sm-2">
+										<select id="eop_swelldir1" class="form-control" name="eop_swelldir1" title="eop_swelldir1">
+											<option value=""></option>
+											<option value="N">N</option>
+											<option value="NNE">NNE</option>
+											<option value="NE">NE</option>
+											<option value="ENE">ENE</option>
+											<option value="E">E</option>
+											<option value="ESE">ESE</option>
+											<option value="SE">SE</option>
+											<option value="SSE">SSE</option>
+											<option value="S">S</option>
+											<option value="SSW">SSW</option>
+											<option value="SW">SW</option>
+											<option value="WSW">WSW</option>
+											<option value="W">W</option>
+											<option value="WNW">WNW</option>
+											<option value="NW">NW</option>
+											<option value="NNW">NNW</option>
+										</select>
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_swellsir2">
+									</div>
+
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="col-sm-2 text-right">average speed
+										<span style="font-size: 10px;">(Knots)</span>
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_averagespeed1">
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_averagespeed2">
+									</div>
+
+									<div class="col-sm-2 text-right">seas
+										<span style="font-size: 10px;">(M) </span>
+									</div>
+									<div class="col-sm-4">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_seas1">
+									</div>
+									<!--<div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" value="0.00" id="nrp_currenttwo"></div> -->
+
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="col-sm-2 text-right">average RPM </div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_averagerpm1">
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_averagerpm2">
+									</div>
+
+									<div class="col-sm-2 text-right">sea temp
+										<span style="font-size: 10px;">(deg C) </span>
+									</div>
+									<div class="col-sm-4">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_seatemp">
+									</div>
+
+
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="col-sm-2 text-right">average slip </div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_averageslip1">
+									</div>
+									<div class="col-sm-2">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_averageslip2">
+									</div>
+
+									<div class="col-sm-2 text-right"> air temp
+										<span style="font-size: 10px;">(deg C) </span>
+									</div>
+									<div class="col-sm-4">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_airtemp">
+									</div>
+									<!-- <div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" value="0.00" id="nrp_airtwo"></div> -->
+
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="col-sm-2 text-right">distance to go
+										<span style="font-size: 10px;">(NM)</span>
+									</div>
+									<div class="col-sm-4">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_diatancetogo">
+									</div>
+									<!-- <div class="col-sm-2"><input class="form-control rit-align" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" value="0.00" id="nrp_lgdisttwo"></div> -->
+
+									<div class="col-sm-2 text-right"> pressure </div>
+									<div class="col-sm-4">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_pressure">
+									</div>
+
+
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="col-sm-2 text-right">ME power </div>
+									<div class="col-sm-4">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_mepower">
+									</div>
+
+									<div class="col-sm-2 text-right">shaft gen power </div>
+									<div class="col-sm-4">
+										<input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" ondrop="return false;"
+										 onpaste="return false;" value=0.00 style="text-align:right" id="eop_shaftgenpower">
+									</div>
+									<!-- <div class="col-sm-2 text-right"> 	PRESSURE </div>
+		<div class="col-sm-2 text-right"> <input class="form-control" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)" value="0.00" style="text-align:right" id="nrp_pressure"> </div> -->
+
+								</div>
+							</div>
+
+							<!-- <div class="row">
+		<div class="col-sm-12">
+	 		<div class="col-sm-2 text-right">NEXT PORT</div>
+		<div class="col-sm-2"><input class="form-control" id="nrp_nxtport" list="portList" onblur="setArrPortCode2(this)"></div>
+		<div class="col-sm-2 text-right"> 	COUNTRY </div>
+		<div class="col-sm-2"><input list="countylist" class="form-control" id="nrp_nextcountry" onblur="setCountryName_Next(this)"></div>
+		<div class="col-sm-2 text-right"> 	 	UNLOCCODE </div>
+		<div class="col-sm-2 text-right"><input class="form-control" maxlength="50" id="nrp_unlocodeone"></div>
+		
+		</div>
+		</div> -->
+
+
+						</div>
+
+
+						<!-- /.row -->
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-12" style="margin-top:10px">
+									<div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+									</div>
+									<div class="section_header">
+										Fuel Details
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-12" style="padding:18px; width:99%; margin-left:6px;">
+								<div class="panel panel-info highlighter">
+
+									<div class="panel-body" style="padding:6px">
+										<div class="table-responsive">
+											<table id="EOSP_table" class="table table-striped table-bordered table-hover">
+												<thead>
+													<tr>
+														<th class="text-center">FUEL TYPE </th>
+
+														<th class="text-center">ME CONSP
+															<span style="font-size: 10px;"> (MT) (Since last report)</span>
+														</th>
+
+														<th class="text-center">AE CONSP
+															<span style="font-size: 10px;">(MT)</span>
+															<span style="font-size: 10px;">(Since last report)</span>
+														</th>
+
+														<th class="text-center"> BOILER CONSP
+															<span style="font-size: 10px;">(MT)</span>
+															<span style="font-size: 10px;">(Since last report)</span>
+														</th>
+
+														<th class="text-center"> TOTAL CONSP
+															<span style="font-size: 10px;"> (MT)</span>
+														</th>
+
+														<th class="text-center"> BROB at 'EOSP'
+															<span style="font-size: 10px;">(MT)</span>
+														</th>
+														
+													</tr>
+
+												</thead>
+												<tbody>
+
+												
+
+
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- /.row -->
+
+
+
+						<div class="row">
+							<div class="col-lg-12" style="padding:0 30px">
+								<div class="form-group">
+									<div class="row">
+
+										<div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+										</div>
+										<div class="section_header">
+											Remarks
+										</div>
+
+
+
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-striped table-bordered table-hover">
+
+											<tbody>
+												<tr>
+													<td>
+														<textarea class="form-control1" rows="14" cols="50" id="eop_remarks"></textarea>
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<br/>
+						<!-----------/buttons-------------->
+						<!-- /.row -->
+
+						<div class="form-group">
+
+							<div class="col-lg-12" style="text-align: right;">
+								<button type="button" class="btn btn-success" onclick="return sendActionJson()"> <i class="fa fa-paper-plane-o"> </i> Send</button>
+								<button type="button" class="btn btn-danger" onclick="resetEOSPAction()" > <i class="fa fa-undo"> </i> Reset</button>
+							</div>
+						</div>
+
+						<br/>
+						<br/>
+</form>
+
+</div>
+
+<div class="modal fade" id="modalCompose">
+        <div class="modal-dialog" style="width: 636px">
+            <div class="modal-content">
+                <div class="modal-header modal-header-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-envelope"></span> Compose Mail</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputFrom">
+                                <span class="glyphicon glyphicon-user"></span>From</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputFrom">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputTo">
+                                <span class="glyphicon glyphicon-user"></span>To</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputTo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="ccTo">
+                                <span class="glyphicon glyphicon-user"></span>CC</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="ccTo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputSubject">
+                                <span class="glyphicon glyphicon-list-alt"></span>Subject</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputSubject" placeholder="subject">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="no-space-break col-sm-2" for="inputAttach">
+                                <span class="fa fa-paperclip"></span>Attachment</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputAttach" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputBody">
+                                <span class="glyphicon glyphicon-list"></span>text</label>
+                            <div class="col-sm-10">
+                            	<div class="table-responsive" >
+                            	  	<table class="table table-striped table-bordered table-hover">
+                            	  		<tbody>
+												<tr>
+													<td>
+                                						<textarea class="form-control1" style="background-color: #eeeeee !important" maxlength="500" rows="3"  id="inputBody"></textarea>
+                                					</td>
+												</tr>
+										</tbody>
+                                	</table>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="MailAction('eospform')">Send
+                        <i class="fa fa-arrow-circle-right fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hide-Progress-overlay show-Progress-overlay">
+            <div class="glassPane">
+                <div class="progress-bar">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                    <!--md-progress-circle mode="indeterminate" color="primary"></md-progress-circle-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- <footer class="main-footer"> -->
+<!-- <strong> Copyright © 2017 <a href="http://www.solverminds.com" target="_blank">www.solverminds.com</a>.</strong> All rights reserved.  -->
+<!-- </footer>	 -->
+
+
+</div>
+</div>
+
+</div>
+<!-- <script>
+	$("#menu-toggle").click(function (e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
+</script> -->
+<!-- /#wrapper -->	
+
+<!-- jQuery -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

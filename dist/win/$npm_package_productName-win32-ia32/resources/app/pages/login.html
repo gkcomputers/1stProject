@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Vessel Report</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="../js/credentials.js"></script>
+	 <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+	
+	
+	<script>if (window.module) module = window.module;</script>
+	
+    <style>
+        .btn-success {
+            color: #fff;
+            background-color: #03A9F4 !important;
+            border-color: #03A9F4;
+        }
+
+        body {
+            background-image: url(../img/login.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="userid" placeholder="Username" name="email" type="text" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" autocomplete="true" id="password" placeholder="Password" name="password" type="password" value="">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" id="chk1" type="checkbox" >Remember Me
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <a href="#" class="btn btn-lg btn-success btn-block" onclick="validatelogin()">Login</a>
+                                <img src="../img/LRPfooter.jpg" />
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+    <script type="text/javascript">
+        $(document).ready(function() {
+            localStorage.setItem("userid", "");
+            var tmpuserid = localStorage.getItem("tmpuserid");
+            var tmppass = localStorage.getItem("tmppass");
+            if(tmpuserid != '' && tmpuserid  != null && tmppass != '' && tmppass  != null){
+                $("#userid").val(tmpuserid);
+                $("#password").val(tmppass);
+                $("#chk1").prop('checked', true);
+            }
+        });
+
+        function validatelogin() {
+            var userid = $("#userid").val().trim();
+            var pass = $("#password").val().trim();
+            if (userid == '') {
+                alert("Username Required!");
+            } else if (pass == '') {
+                alert("Password Required!");
+            } else if (userid != useridval1 || pass != passwordval2) {
+                alert("Invalid Credentials!");
+            } else {
+                localStorage.setItem("userid", userid);
+                if($("#chk1").is(":checked")) {
+                    localStorage.setItem("tmppass", pass);
+                    localStorage.setItem("tmpuserid", userid);
+                }else{
+                    localStorage.setItem("tmppass", "");
+                    localStorage.setItem("tmpuserid", "");
+                }                
+                $("#userid").val('');
+                $("#password").val('');
+                window.location.href = "main.html"
+            }
+        }
+		
+		
+// 		<!-- function validatelogin() { -->
+//     <!-- if (document.getElementById("userid").value == useridval1 -->
+//        <!-- && document.getElementById("password").value == passwordval2 ) -->
+//     <!-- { -->
+//         <!-- //alert( "validation succeeded" ); -->
+//         <!-- window.location.href = "cosp.html"; -->
+//     <!-- } -->
+//     <!-- else -->
+//     <!-- { -->
+//         <!-- alert( "Invalid Credentials!" ); -->
+//         <!-- //location.href="fail.html"; -->
+//     <!-- } -->
+// <!-- } -->
+		
+	
+		
+		$("#password").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $(".btn-block").click();
+    }
+});
+
+$("#userid").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $(".btn-block").click();
+    }
+});
+
+    </script>
+</body>
+</html>

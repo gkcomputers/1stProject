@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Product Information</title>
+
+
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page
+	 via file:// -->
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link href="../css/progressbar.css" rel="stylesheet" type="text/css">
+
+	<link href="../css/customer_bdn.css" rel="stylesheet" type="text/css">
+	<script src="../js/datatable.js"></script>
+	<link href="../css/datatable.css" rel="stylesheet" type="text/css">
+	<link href="../css/customer.css" rel="stylesheet" type="text/css">
+		<link href="../css/example.css" rel="stylesheet" type="text/css">
+	<script src="../js/customer.js"></script>
+
+
+</head>
+
+
+
+<div id="page-content-wrapper">
+	<form id="customerform">
+
+		<div class="container-fluid">
+			<div class="row">
+
+			<div style="background:white;border: 1px solid #ffffff;box-shadow: 5px 5px 27px #8f8e8e;border-radius: 10px;margin:0 auto;Z-INDEX: 2000; margin-top: -15px;">
+
+			<div class="col-sm-12" style="font-size:16px;color:#00b6e3;margin-top: 5px;font-weight:bold;background-color: darkblue !important;margin-top: 0px; color:white;padding:5px;border-radius:10px 10px 0 0">
+
+				<div class="col-sm-3  text-left"  style="padding-top: 7px !important;" >Customer Information </div>
+				<div class="col-sm-6  text-center">
+	                <span  maxlength="200" style="font-size: 25px !important;" id="span_vesselname" readonly> </span>
+	            </div>
+
+
+            </div>
+						<div class="row">
+							<div class="col-sm-12" style="padding:18px; width:99%; margin-left:7px;">
+				      <div class="panel panel-info highlighter">
+				      <div class="panel-body" style="padding:6px">
+
+							<table id="customerTable" class="display" style="margin-left:8px;">
+				          	<thead>
+				            	<tr>
+							             <th class="text-center" >Customer ID</th>
+							             <th class="text-center" >Customer Name </th>
+							             <th class="text-center" >Area </th>
+							             <th class="text-center" >Mobile </th>
+													 <th class="text-center" >TIN NO </th>
+													 <th class="text-center" >More Information </th>
+													 <th class="tet-center">Edit</th>
+							             <th class="text-center">Delete </th>
+				              </tr>
+				            </thead>
+										<tbody id="customerTableBody">
+										</tbody>
+
+				      </table>
+						</div>
+						</div>
+						</div>
+						</div>
+
+	</div>
+
+	<br/>
+					<!-----------/buttons-------------->
+					<!-- /.row -->
+
+	<div class="form-group">
+						<div class="col-lg-6" >
+							<button type="button" class="btn btn-success" id="cusEditAll" onclick="cusEditAllAction();"> <i class="fa fa-paper-plane-o"> </i> Edit All
+							</button>
+							<button type="button" class="btn btn-success" id="sendMail" onclick="mailSend();"> <i class="fa fa-paper-plane-o"> </i> Save
+							</button>
+						</div>
+            <div class="col-lg-6" style="text-align: right;">
+
+               <!--<button type="button" class="btn btn-primary" onclick="return sendAction('arr')">Send</button>-->
+               <!-- <button type="button" class="btn btn-primary" id="saveFile" onclick="lowDBvalidation();">Save</button> -->
+							 <button type="button" class="btn btn-success" id="cusAdd" onclick="cusAddAction();"> <i class="fa fa-paper-plane-o"> </i> Add New customer
+							 </button>
+                <button type="button" class="btn btn-danger" onclick="resetarrAction()" > <i class="fa fa-undo"> </i> Cancel</button>
+            </div>
+  </div>
+		<br/><br/>
+
+	</div>
+</div>
+</form>
+</div>
+
+
+<!-- Add Customer Details -->
+<div class="modal fade" id="modalCompose" >
+			<div class="modal-dialog" style="width: 900px">
+					<div class="modal-content" id="formModel">
+							<div class="modal-header modal-header-info">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h4 class="modal-title">
+											<span class="glyphicon glyphicon-envelope"></span> Add New Customer Details</h4>
+							</div>
+							<form id="customer_form">
+							<div class="row">
+
+								<div class="col-sm-12" style="margin-top: 10px;">
+									<div class="col-sm-2 text-right">Code</div>
+									<div class="col-sm-3">
+										<input maxlength="15" type="text"  class="form-control rit-align"  id="cus_code">
+									</div>
+
+									<div class="col-sm-2 text-right">Area</div>
+									<div class="col-sm-3">
+										<input maxlength="25"  type="text"  class="form-control rit-align"  id="cus_area">
+									</div>
+								</div>
+							</div>
+<br></br>
+
+<!-- 2nd row -->
+
+<div class="row">
+
+	<div class="col-sm-12" style="margin-top: 10px;">
+		<div class="col-sm-2 text-right">Name</div>
+		<div class="col-sm-3 ">
+			<input maxlength="15"  class="form-control rit-align"  id="cus_name">
+		</div>
+		<div class="col-sm-2 text-right">Address</div>
+		<div class="col-sm-3 ">
+			<textarea class ="form-control rit-align" type="text"  id="cus_address" maxlength="200" rows="10"></textarea>
+		</div>
+
+	</div>
+</div>
+<br></br>
+<!--2nd row ends -->
+<!-- 3rd row -->
+<div class="row">
+	<div class="col-sm-2 text-right">State</div>
+	<div class="col-sm-3">
+		<input maxlength="20"  class="form-control rit-align" type="text"  id="cus_state">
+	</div>
+	<div class="col-sm-2 text-right">TIN NO</div>
+	<div class="col-sm-3">
+		<input maxlength="15"  class="form-control rit-align" type="text"  id="cus_tin">
+	</div>
+
+	</div>
+<br></br>
+<!--3rd row ens -->
+<!-- 4th row -->
+<div class="row">
+	<div class="col-sm-2 text-right">Mobile</div>
+	<div class="col-sm-3">
+		<input maxlength="13"  class="form-control rit-align" type="text"  id="cus_mobile">
+	</div>
+	<div class="col-sm-2 text-right">Pincode</div>
+	<div class="col-sm-3">
+		<input maxlength="6"  class="form-control rit-align" type="text"  id="cus_pincode">
+	</div>
+
+	</div>
+<br></br>
+<!-- 4th row ends-->
+<!--5th row -->
+<div class="row">
+	<div class="col-sm-2 text-right">Email</div>
+	<div class="col-sm-3">
+		<input maxlength="50"  class="form-control rit-align" type="text"  id="cus_email">
+	</div>
+	<div class="col-sm-2 text-right">Remarks</div>
+	<div class="col-sm-3 ">
+		<textarea class ="form-control rit-align" id="cus_remarks" type="text"  maxlength="100" rows="10"></textarea>
+	</div>
+
+	</div>
+<br></br>
+
+<!-- 5th row ends-->
+<!-- Add, save & cancel action -->
+
+										<div class="col-sm-1" style="margin-top:15px; margin-left: 5px">
+											<button type="button" style="padding: 4px;" class="btn btn-primary" onclick="addRowcustomer('dataTablePro')">
+										 <i class="fa fa-plus-circle "> </i> ADD</button>
+										</div>
+
+										<div class="modal-footer">
+												<button type="button" class="btn btn-default pull-middle" data-dismiss="modal">Cancel</button>
+												<button type="button" id="ModelSend" class="btn btn-primary" onclick="saveNewCustomer()">Save
+														<i class="fa fa-arrow-circle-right fa-lg"></i>
+												</button>
+										</div>
+
+
+						<div class="hide-Progress-overlay show-Progress-overlay">
+								<div class="glassPane">
+										<div class="progress-bar">
+												<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+												<span class="sr-only">Loading...</span>
+												<!--md-progress-circle mode="indeterminate" color="primary"></md-progress-circle-->
+										</div>
+								</div>
+						</div>
+					</form>
+					</div>
+					</div>
+	</div>
+
+	<!-- Add, save & cancel action -->
+<!-- Add Customer details end -->
+
+<!-- EDIT CUSTOMER DETAILS -->
+		<div class="modal fade" id="modalEditCompose" >
+					<div class="modal-dialog" style="width: 1000px">
+							<div class="modal-content" id="formModel">
+									<div class="modal-header modal-header-info">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											<h4 class="modal-title">
+													<span class="glyphicon glyphicon-envelope"></span> Edit Customer Details</h4>
+									</div>
+									<div class="modal-body">
+											<form role="form" id="customerEditform"  class="form-horizontal">
+												<div class="col-sm-12 form-group">
+													<div class="col-sm-1 text-right" >
+
+														</div>
+														<div class="col-sm-9 customerdetails">
+														<table id="customer" class="table table-bordered" style="margin-left: 5px">
+														<thead>
+															<th style="padding:5px !important;text-align:center;" id="info_fuelrequirement">Customer ID</th>
+															<th style="padding:5px !important;text-align:center;" id="info_bunstem">Customer Name</th>
+															<th style="padding:5px !important;text-align:center;" id="info_bunstem">Area</th>
+															<th style="padding:5px !important;text-align:center;" id="info_bunstem">Mobile</th>
+															<th style="padding:5px !important;text-align:center;" id="info_bunstem">TIN NO</th>
+															<a>
+																<i class="fa fa-plus-circle "> </i>
+															</a>
+														</thead>
+														<tbody id="dataTableCus">
+															<td>
+																<input style="text-align: left; height: 30px !important;width :80px;" readonly class="form-control rightalign"  id="customeride0">
+															</td>
+															<td>
+																<input style="text-align: right; height: 30px !important;width :180px;" class="form-control rightalign"  id="customernamee0">
+															</td>
+															<td>
+																<input style="text-align: left; height: 30px !important;width :250px;" class="form-control rightalign" id="cusareae0">
+															</td>
+															<td>
+																<input style="text-align: right; height: 30px !important;width :120px;" class="form-control rightalign" id="cusmobilee0">
+															</td>
+															<td>
+																<input style="text-align: right; height: 30px !important;width :140px;" class="form-control rightalign" id="custine0">
+															</td>
+
+														</tbody>
+													</table>
+
+													 </div>
+
+												</div>
+											</form>
+									</div>
+									<div class="modal-footer">
+											<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+											<button type="button" id="ModelSend" class="btn btn-primary" onclick="saveEditCustomer()">Save
+													<i class="fa fa-arrow-circle-right fa-lg"></i>
+											</button>
+									</div>
+							</div>
+					</div>
+					<div class="hide-Progress-overlay show-Progress-overlay">
+							<div class="glassPane">
+									<div class="progress-bar">
+											<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+											<span class="sr-only">Loading...</span>
+											<!--md-progress-circle mode="indeterminate" color="primary"></md-progress-circle-->
+									</div>
+							</div>
+					</div>
+
+			</div>
+
+<!-- EDIT CUSTOMER DETAILS ENDS -->
+
+<!-- CUSTOMER MORE INFORMATION ACTION -->
+
+<div class="modal fade" id="modalInfoCompose" >
+			<div class="modal-dialog" style="width: 900px">
+					<div class="modal-content" id="formModel">
+							<div class="modal-header modal-header-info">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h4 class="modal-title">
+											<span class="glyphicon glyphicon-envelope"></span> More Info Customer Details</h4>
+							</div>
+							<form id="customer_info_form">
+							<div class="row">
+
+								<div class="col-sm-12" style="margin-top: 10px;">
+									<div class="col-sm-2 text-right">Code</div>
+									<div class="col-sm-3" style="width :250px;">
+										<input maxlength="15" type="text"  class="form-control rit-align"  id="cus_icode">
+									</div>
+
+									<div class="col-sm-2 text-right">Area</div>
+									<div class="col-sm-3" style="width :250px;">
+										<input maxlength="25"  type="text"  class="form-control rit-align"  id="cus_iarea">
+									</div>
+								</div>
+							</div>
+<br></br>
+
+<!-- 2nd row -->
+
+<div class="row">
+
+	<div class="col-sm-12" style="margin-top: 10px;">
+		<div class="col-sm-2 text-right">Name</div>
+		<div class="col-sm-3" style="width :250px;">
+			<input maxlength="15"  class="form-control rit-align"  id="cus_iname">
+		</div>
+		<div class="col-sm-2 text-right">Address</div>
+		<div class="col-sm-3" style="width :250px;">
+			<textarea class ="form-control rit-align" type="text"  id="cus_iaddress" maxlength="200" rows="10"></textarea>
+		</div>
+
+	</div>
+</div>
+<br></br>
+<!--2nd row ends -->
+<!-- 3rd row -->
+<div class="row">
+	<div class="col-sm-2 text-right">State</div>
+	<div class="col-sm-3" style="width :250px;">
+		<input maxlength="20"  class="form-control rit-align" type="text"  id="cus_istate">
+	</div>
+	<div class="col-sm-2 text-right">TIN NO</div>
+	<div class="col-sm-3" style="width :250px;">
+		<input maxlength="15"  class="form-control rit-align" type="text"  id="cus_itin">
+	</div>
+
+	</div>
+<br></br>
+<!--3rd row ens -->
+<!-- 4th row -->
+<div class="row">
+	<div class="col-sm-2 text-right">Mobile</div>
+	<div class="col-sm-3" style="width :250px;">
+		<input maxlength="13"  class="form-control rit-align" type="text"  id="cus_imobile">
+	</div>
+	<div class="col-sm-2 text-right">Pincode</div>
+	<div class="col-sm-3" style="width :250px;" >
+		<input maxlength="6"  class="form-control rit-align" type="text"  id="cus_ipincode">
+	</div>
+
+	</div>
+<br></br>
+<!-- 4th row ends-->
+<!--5th row -->
+<div class="row">
+	<div class="col-sm-2 text-right">Email</div>
+	<div class="col-sm-3" style="width :250px;">
+		<input maxlength="50"  class="form-control rit-align" type="text"  id="cus_iemail">
+	</div>
+	<div class="col-sm-2 text-right">Remarks</div>
+	<div class="col-sm-3" style="width :250px;">
+		<textarea class ="form-control rit-align" id="cus_iremarks" type="text"  maxlength="100" rows="10"></textarea>
+	</div>
+
+	</div>
+<br></br>
+
+<!-- 5th row ends-->
+<!-- Add, save & cancel action -->
+
+
+										<div class="modal-footer">
+												<button type="button" class="btn btn-default pull-middle" data-dismiss="modal">Cancel</button>
+												<button type="button" id="ModelSend" class="btn btn-primary" onclick="saveMoreInfoCustomer()">Save
+														<i class="fa fa-arrow-circle-right fa-lg"></i>
+												</button>
+										</div>
+
+
+						<div class="hide-Progress-overlay show-Progress-overlay">
+								<div class="glassPane">
+										<div class="progress-bar">
+												<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+												<span class="sr-only">Loading...</span>
+												<!--md-progress-circle mode="indeterminate" color="primary"></md-progress-circle-->
+										</div>
+								</div>
+						</div>
+					</form>
+					</div>
+					</div>
+	</div>
+
+<!-- More info Customer details -->
+			<!--delete-->
+			<div class="modal fade" id="modalDeleteCompose" >
+						<div class="modal-dialog" style="width: 440px">
+								<div class="modal-content" id="formModel" style="height: 97px; border: 7px solid">
+
+										<div >
+
+													<div class="col-sm-12 form-group" style="text-align:center">
+														<div class="col-sm-12" >
+															<span style="font-size: 18px">Are you sure to delete</span><span style="font-size:18px;color:red">Customer </span>
+															<span style="font-size: 18px;color:red" id="span_delete"></span> <span style="font-size:18px;color:red"> ? </span>
+														 </div>
+
+
+													</div>
+
+										</div>
+										<div >
+											<div class="col-sm-3"></div>
+											<div class="col-sm-6" >
+
+												<button type="button" id="DelSend" class="btn btn-danger fa fa-trash" onclick="DeleteCustomer()">Delete
+												</button>
+												<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+											</div>
+											<div class="col-sm-3"></div>
+										</div>
+								</div>
+						</div>
+				</div>
+		<script type="text/javascript">
+
+
+
+
+
+
+
+
+		function mailSend(){
+		 if(bdnARRsavevalidation()){
+		saveAndSendAction("sendMail")
+			 }
+		}
+
+
+		function bdnARRsavevalidation(){
+						return true;
+		}
+
+		function saveAndSendAction(type) {
+				}
+
+
+
+		</script>
+
+		<!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Metis Menu Plugin JavaScript -->
+		<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+
+		<!-- Custom Theme JavaScript -->
+		<script src="../dist/js/sb-admin-2.js"></script>
+
+		</body>
+
+		</html>

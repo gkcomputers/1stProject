@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    
+
+
+    <script src="../vendor/jquery/jquery.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/mailconfig.js"></script>
+    <script src="../js/rendered.js"></script>
+    <script src="../js/masterreport.js"></script>
+    <script src="../js/lowdb.js"></script>
+    <script src="/path/to/shared/js/modernizr.com/Modernizr-2.5.3.forms.js"> </script>
+
+</head>
+    <!-- Page Content -->
+    <form id="scheduleform">
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div style="background:white;border: 1px solid #ffffff;height:800px;box-shadow: 5px 5px 27px #8f8e8e;border-radius: 10px;margin:0 auto;Z-INDEX: 2000; margin-top: -15px;">
+                        <div class="col-sm-12 col-md-8 col-lg-12" style="font-size:20px;color:#00b6e3;margin-top: 5px;font-weight:bold;background-color: darkblue;margin-top: 0px; color:white;padding:5px;border-radius:10px 10px 0 0">
+                            System Configuration </div>
+                        <div style="margin-top: 50px">
+                            <div class="row">
+                                <div class="col-sm-10 col-md-8 col-lg-10">
+
+                                    <div class="col-sm-3 text-right" style="padding-top:5px;">System E-mail
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" id="from" readonly>
+                                    </div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-10">
+									<div class="col-sm-3 text-right" style="padding-top:5px;">Shore E-mail
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-4 ">
+                                        <input class="form-control" id="to" readonly>
+
+                                    </div>
+								</div>
+							</div>
+							<br/>
+							<br/>
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-10">	
+                                    <div class="col-sm-3 text-right" style="padding-top:5px;">Host
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-4 ">
+                                        <input class="form-control" id="host" readonly>
+
+                                    </div>
+                                    <div class="col-sm-2 text-right" style="padding-top:5px;">SMTP Port
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-3 ">
+                                        <input class="form-control" id="smtpport" readonly>
+
+                                    </div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-10">
+                                    <div class="col-sm-3 text-right" style="padding-top:5px;">User Name
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-4 ">
+                                        <input class="form-control" id="user" readonly>
+    
+                                    </div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-10">		
+										
+                                    <div class="col-sm-3 text-right" style="padding-top:5px;">Password
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-4 ">
+                                        <input class="form-control" id="pass" readonly>
+                                    </div>
+										
+								</div>
+							</div>
+							<br/>
+							<br/>
+							<div class="row">
+								<div class="col-sm-10 col-md-8 col-lg-10">	
+                                    <div class="col-sm-3 text-right" style="padding-top:5px;">Vessel E-mail
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-4 ">
+                                        <input class="form-control" id="vslmail" readonly>
+    
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <!-----------/buttons-------------->
+                            <div class="form-group">
+                                <div class="col-lg-10" style="text-align: center;">
+                                    <button type="button" class="btn btn-primary" onclick=Editsysconfig()> <i class="fa fa-edit"> </i> Edit</button>
+                                    <button type="button" class="btn btn-success" onclick="Savesysconfig()"> <i class="fa fa-save"> </i> Save</button>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                        
+    </form> 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            makeActiveSidebar();
+            var info = (db.get('sysconfig').value());
+            console.log(JSON.stringify(info));
+            $('#from').val(info[0].from);
+            $('#to').val(info[0].to);
+            $('#host').val(info[0].host);
+            $('#smtpport').val(info[0].smtpport);
+            $('#user').val(info[0].user);
+            $('#pass').val(info[0].pass);
+			$('#vslmail').val(info[0].vesselemail);
+          });
+
+
+      function makeActiveSidebar(){
+    
+    document.getElementById("noonFrom").setAttribute("class", "");
+    document.getElementById("eospFrom").setAttribute("class", "");
+    document.getElementById("arrivalFrom").setAttribute("class", "");
+    document.getElementById("departureFrom").setAttribute("class", "");
+    document.getElementById("bospFrom").setAttribute("class", "");
+    document.getElementById("bunkerrequestFrom").setAttribute("class", "");
+    document.getElementById("bdnFrom").setAttribute("class", "");
+    document.getElementById("brobFrom").setAttribute("class", "");
+    document.getElementById("vslinfo").setAttribute("class", "");
+    document.getElementById("ports").setAttribute("class", "");
+    document.getElementById("sysconfig").setAttribute("class", "active");
+
+}
+
+
+
+          function  Savesysconfig(){
+         alert("Successfully saved");
+         $('input').attr("readonly",true);
+        var obj = { "from": $('#from').val(), "to": $('#to').val(), "host": $('#host').val(), "smtpport": $('#smtpport').val(),"user": $('#user').val(),"pass": $('#pass').val(), "vesselemail": $('#vslmail').val()}
+        console.log(obj);
+        db.get('sysconfig').nth(0).assign(obj).value();
+		db.write();
+      }
+
+
+      function Editsysconfig(){
+       $('input').attr("readonly",false);
+      }
+
+</script>
+    <script type="text/javascript" src="../../shared/js/html5Forms.js" data-webforms2-support="date" data-webforms2-force-js-validation="true"
+        data-webforms2-force-js-date-picker="true" data-lang="en">
+        </script>
+
+    <!-- /#wrapper -->
+    
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    </body>
+
+</html>

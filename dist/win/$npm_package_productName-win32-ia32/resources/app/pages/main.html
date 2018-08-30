@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Vessel Report</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="fonts/Kelson Sans Regular.otf" rel="stylesheet">
+
+	<!-- MetisMenu CSS -->
+	<link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+	<link href="../css/ibsstyle.css" rel="stylesheet" type="text/css">
+
+	<!-- Custom Fonts -->
+	<link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!-- <link href="../css/ports.css" rel="stylesheet" type="text/css"> -->
+	<!--<link href="../css/ibsstyle.css" rel="stylesheet" type="text/css">
+	<link href="../css/cosp.css" rel="stylesheet" type="text/css">
+	<link href="../css/progressbar.css" rel="stylesheet" type="text/css">-->
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<script src="../vendor/jquery/jquery.js"></script>
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/vessel.js"></script>
+	<script src="../js/country.js"></script>
+	<script src="../js/port.js"></script>
+	<script src="../js/fuel.js"></script>
+	<script src="../js/fuelgrade.js"></script>
+	<script src="../js/mailconfig.js"></script>
+	<script src="../js/schedules.js"></script>
+	<!-- <script src="../js/cosp.js"></script> -->
+	<script src="../js/fuelcombi.js"></script>
+	<script src="../js/rendered.js"></script>
+	<script src="../js/masterreport.js"></script>
+	<script src="../js/lowdb.js"></script>
+	<script src="../js/main.js"></script>
+	<!-- <link href="../css/ports.css" rel="stylesheet" type="text/css"> -->
+	<script src="/path/to/shared/js/modernizr.com/Modernizr-2.5.3.forms.js"> </script>
+
+	<!--<script src="https://unpkg.com/lodash@4/lodash.min.js"></script>
+    <script src="https://unpkg.com/lowdb/dist/low.min.js"></script>
+    <script src="https://unpkg.com/lowdb/dist/LocalStorage.min.js"></script>
+    <script>
+    var adapter = new LocalStorage('lowdb')
+    var db = low(adapter)
+   </script-->
+</head>
+
+<style>
+	.navbar-default {
+		background: url("../img/GWFheader.jpg")no-repeat !important;
+	}
+</style>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="">
+	<div class="col-sm-6" style="height:50px;" style="margin-top:13px;">
+		<a class="fa fa-bars" href="#menu-toggle" id="menu-toggle" style="font-size:23px;margin-top:15px;color:black;"></a>
+	</div>
+
+	<div class="pull-right " style=" margin-top: 10px; margin-right:5px">
+		<!-- <img src="../img/user.png"style="width:32px" />
+					  <span class="Logout" style="margin-right:20px; color:blue">UserName</span> -->
+		<!--					  <a href="login.html" style="margin-right: 10px;"><i class="fa fa-sign-out" aria-hidden="true" style="color:blue; ma"></i> <span class="Logout" style=" color:blue">Logout</span></a>-->
+		<a href="login.html" class="btn btn-danger confirmation" style="margin-right: 10px;">
+		<i class="fa fa-sign-out fa-lg" aria-hidden="true" style="color:#fff !important;"></i>
+			<span class="Logout" style=" color:blue">Logout</span>
+
+		</a>
+	</div>
+</nav>
+<div id="wrapper" style="margin-top:0px">
+	<div id="border_side"> </div>
+	<!-- Sidebar -->
+	<div id="sidebar-wrapper" style="height: 100%;">
+		<ul class="sidebar-nav" style="">
+			<li class="sidebar-brand">
+
+				<li id="eospFrom" role="presentation" style="cursor: pointer" onclick="load_home('eosp.html')" >
+					<a class="confirmation" >
+						<img class="imgmenu" src="../img/menuicons/eosp.svg" /> EOSP Report
+					</a>
+				</li>
+				<li id="arrivalFrom" role="presentation"  style="cursor: pointer" onclick="load_home('arrival.html')">
+					<a class="confirmation">
+						<img class="imgmenu" src="../img/menuicons/arrival.svg" /> Arrival Report </a>
+				</li>
+				<li id="departureFrom" role="presentation"  style="cursor: pointer" onclick="load_home('departure.html')">
+					<a class="confirmation">
+						<img class="imgmenu" src="../img/menuicons/departure.svg" /> Departure Report </a>
+				</li>
+				<li id="bospFrom" role="presentation" style="cursor: pointer" onclick="load_home('cosp.html')">
+					<a class="confirmation">
+						<img class="imgmenu" src="../img/menuicons/bosp.svg" /> BOSP Report</a>
+				</li>
+				<li id="noonFrom" role="presentation" style="cursor: pointer" onclick="load_home('noon.html')">
+					<a class="confirmation">
+						<img class="imgmenu" src="../img/menuicons/noon.svg" /> Noon Report</a>
+				</li>
+				<li id="bunkerrequestFrom" role="presentation" style="cursor: pointer" onclick="load_home('BunkerRequest.html')">
+					<a class="confirmation">
+						<img class="imgmenu" src="../img/menuicons/bunker request.svg" /> Bunker Request </a>
+				</li>
+				<li id="bdnFrom" role="presentation" style="cursor: pointer" onclick="load_home('bdn.html')">
+					<a class="confirmation">
+						<img class="imgmenu" src="../img/menuicons/bunker delicvery note.svg" /> Bunker Delivery Note</a>
+				</li>
+				<li id="brobFrom" role="presentation" style="cursor: pointer" onclick="load_home('brob.html')">
+					<a class="confirmation">
+						<img class="imgmenu" src="../img/menuicons/BunkerROB.svg" /> Bunker ROB - Month End Report</a>
+				</li>
+				<li id="drop" class="dropdown " role="presentation">
+					<a class="confirmation" role="presentation" aria-expanded=false>
+					<img class="imgmenu" src="../img/menuicons/setting.svg" /> Settings
+					</a>
+					<ul class="dropdown-menu dropdown-menu-form " style="background-color:initial !important;padding-top:0 !important;margin-top:0 !important;font-size: 12px !important;font-family:Segoe UI,Trebuchet MS;font-weight: 700;">
+
+						<li id=vslinfo style="cursor: pointer" role="presentation"><a onclick="load_home('vslinfo.html')"  class="confirmation"> <img class="imgmenu" src="../img/menuicons/info.svg" /> Vessel Info</a></li>
+
+						<li id=ports style="cursor: pointer" role="presentation" ><a  onclick="load_home('ports.html')" class="confirmation"> <img class="imgmenu" src="../img/menuicons/ports.svg" /> Ports</a></li>
+
+						<li id=sysconfig style="cursor: pointer" role="presentation" ><a onclick="load_home('sysconfig.html')" class="confirmation">  <img class="imgmenu" src="../img/menuicons/sys config.svg" /> System Configuration</a></li>
+					</ul>
+				</li>
+			</li>
+		</ul>
+	</div>
+
+
+
+	<!-- /#sidebar-wrapper -->
+
+	<!-- Page Content -->
+
+	<form id="scheduleform" style="margin-top: 50px;">
+		<img src="../img/home.png" height="580" style="width:100%;">
+
+			<div class="col-xs-12 text-center quota">
+                <span>GREAT WHITE FLEET…WE MAKE IT PERSONAL</span>
+            </div>
+	</form>
+
+
+	<script>
+
+// function resizeDivs() {
+//     var main = document.getElementById('sidebar-wrapper').offsetHeight;
+
+//     alert(main);
+
+//     var sidebar = document.getElementById('wrapper').offsetHeight;
+
+//     alert(sidebar);
+
+//     if (sidebar > main) {
+//         main = sidebar;
+//         document.getElementById('sidebar-wrapper').style.height = document.getElementById('wrapper').style.height = main + 'px'
+//     } else {
+//         sidebar = main;
+//         document.getElementById('wrapper').style.height = document.getElementById('sidebar-wrapper').style.height = sidebar + 'px'
+//     }
+// }
+
+// 	window.onload = resizeDivs;
+
+
+// $(document).ready(function() {
+//   function setHeight() {
+//     windowHeight = $(window).innerHeight();
+//     $('#wrapper').css('height', windowHeight);
+//   };
+//   setHeight();
+
+//   $(window).resize(function() {
+//     setHeight();
+//   });
+// });
+
+</script>
+
+
+
+
+	<script type="text/javascript">
+        function load_home(value){
+			$("#scheduleform").load(value);
+       }
+    </script>
+
+	<script type="text/javascript">
+    $("document").ready(function() {
+    $('.dropdown-menu').on('click', function(e) {
+      if($(this).hasClass('dropdown-menu-form')) {
+          e.stopPropagation();
+      }
+  });
+
+
+   $('#drop').on('click', function(e) {
+    if($(this).hasClass('open')) {
+       $('#drop').removeClass('open')
+     }
+	  else{
+       $('#drop').toggleClass('open')
+	  }
+ });
+});
+
+ $(document).ready(function () {
+
+	$("#menu-toggle").click(function (e) {
+	 // alert("ff");
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
+
+});
+
+
+</script>
+
+	<script type="text/javascript" src="../../shared/js/html5Forms.js" data-webforms2-support="date" data-webforms2-force-js-validation="true"
+		data-webforms2-force-js-date-picker="true" data-lang="en">
+        </script>
+
+	<!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="../vendor/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+
+	<!-- Custom Theme JavaScript -->
+	<script src="../dist/js/sb-admin-2.js"></script>
+	</body>
+
+</html>

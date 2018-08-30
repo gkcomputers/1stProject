@@ -1,0 +1,84 @@
+{
+  "cosp": [],
+  "vesselinfo": [
+    {
+      "vslcode": "CQEX",
+      "vslname": "CHIQUITA EXPRESS",
+      "service": "KHH",
+      "imodetails": "190734",
+      "vesselemail": "prema@solverminds.com"
+    }
+  ],
+  "ports": [
+    {
+      "portname": "Chennai",
+      "portcode": "INMAA"
+    },
+    {
+      "portname": "che",
+      "portcode": "111"
+    }
+  ],
+  "sysconfig": [
+    {
+      "from": "renceabishek.g@solverminds.com",
+      "to": "ibssupport@solverminds.com",
+      "host": "mail.solverminds.com",
+      "smtpport": "25",
+      "user": "ibssupport@solverminds.com",
+      "pass": "I67@Lth*hjkW@th87",
+      "vesselemail": "prema@solverminds.com"
+    }
+  ],
+  "bunkerrequest": [
+    {
+      "service": "KHH",
+      "vesselname": "CHIQUITA EXPRESS",
+      "vesselcode": "CQEX",
+      "voyagenumber": "136",
+      "Dateofsupply": "2018-04-12",
+      "bunkerportcode": "INMAA",
+      "bunkerportname": "Chennai",
+      "vslemail": "prema@solverminds.com",
+      "status": "Closed",
+      "fueldetails": [
+        {
+          "fuel": "MGO-DMA",
+          "bunstem": "500.00",
+          "maxintake": "60.00"
+        },
+        {
+          "fuel": "MGO-DMB",
+          "bunstem": "600.00",
+          "maxintake": "70.00"
+        },
+        {
+          "fuel": "HSFO-RMG380",
+          "bunstem": "680.00",
+          "maxintake": "60.00"
+        },
+        {
+          "fuel": "MGO-RMK380",
+          "bunstem": "880.00",
+          "maxintake": "60.00"
+        }
+      ],
+      "remarks": " "
+    }
+  ],
+  "fueldetail": [
+    {
+      "infofuelrequirement": "MGO-DMA"
+    },
+    {
+      "infofuelrequirement": "MGO-DMB"
+    },
+    {
+      "infofuelrequirement": "HSFO-RMG380"
+    },
+    {
+      "infofuelrequirement": "MGO-RMK380"
+    }
+  ],
+  "count": 0
+}

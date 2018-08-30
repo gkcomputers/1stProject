@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Setting Reports</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="fonts/Kelson Sans Regular.otf" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <link href="../css/ibsstyle.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/ibsstyle.css" rel="stylesheet" type="text/css">
+    <link href="../css/cosp.css" rel="stylesheet" type="text/css">
+    <link href="../css/progressbar.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../vendor/jquery/jquery.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/vessel.js"></script>
+    <script src="../js/country.js"></script>
+    <script src="../js/port.js"></script>
+    <script src="../js/fuel.js"></script>
+    <script src="../js/fuelgrade.js"></script>
+    <script src="../js/mailconfig.js"></script>
+    <script src="../js/schedules.js"></script>
+    <script src="../js/cosp.js"></script>
+    <script src="../js/fuelcombi.js"></script>
+    <script src="../js/rendered.js"></script>
+    <script src="../js/masterreport.js"></script>
+    <script src="../js/lowdb.js"></script>
+    <script src="/path/to/shared/js/modernizr.com/Modernizr-2.5.3.forms.js"> </script>
+
+    <!--<script src="https://unpkg.com/lodash@4/lodash.min.js"></script>
+    <script src="https://unpkg.com/lowdb/dist/low.min.js"></script>
+    <script src="https://unpkg.com/lowdb/dist/LocalStorage.min.js"></script>
+    <script>
+    var adapter = new LocalStorage('lowdb')
+    var db = low(adapter)
+   </script-->
+
+
+
+
+</head>
+    <!-- Page Content -->
+    <form id="scheduleform">
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div style="background:white;border: 1px solid #ffffff;height:800px;box-shadow: 5px 5px 27px #8f8e8e;border-radius: 10px;margin:0 auto;Z-INDEX: 2000;">
+                        <div class="col-sm-12 col-md-8 col-lg-12" style="font-size:16px;color:#00b6e3;margin-top: 5px;font-weight:bold;background-color: #1794b2;margin-top: 0px; color:white;padding:5px;border-radius:10px 10px 0 0">
+                            Schedule Report </div>
+                        <div style="margin-top: 50px">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-8 col-lg-12">
+
+                                    <div class="col-sm-2 text-right">Service
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input class="form-control" id="set_service">
+                                    </div>
+
+                                    <div class="col-sm-2 text-right">Vessel Name
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-2 ">
+                                        <input class="form-control" id="set_vslname">
+
+                                    </div>
+                                    <div class="col-sm-2 text-right">Vessel Code
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input class="form-control" maxlength="10" id="set_vslcode"> </div>
+                                    <div class="col-sm-2 text-right">Voyage Number
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="set_voynum" maxlength="10" class="form-control">
+                                    </div>
+                                    <div class="col-sm-2 text-right">Bound
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="set_bound" maxlength="1" class="form-control">
+                                    </div>
+                                    <div class="col-sm-2 text-right">Port
+                                        <span class="required" style="color:red">&nbsp;*</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input class="form-control" id="set_port">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <!-----------/buttons-------------->
+
+                            <div class="form-group">
+                                <div class="col-lg-12" style="text-align: center;">
+                                    <button type="button" class="btn btn-primary" onclick="addschedule()">Add</button>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+    </form>
+
+    <script type="text/javascript">
+        function addschedule() {          
+            if ($('#set_service').val() == "") {
+                alert("Kindly enter the service");
+            } else if ($('#set_bound').val() == "") {
+                alert("Kindly enter the bound");
+            } else if ($('#set_voynum').val() == "") {
+                alert("Kindly enter the voyage number");
+            } else if ($('#set_vslcode').val() == "") {
+                alert("Kindly enter the vessel code");
+            } else if ($('#set_vslname').val() == "") {
+                alert("Kindly enter the vessel name");
+            } else if ($('#set_port').val() == "") {
+                alert("Kindly enter the port");
+            } else  {               
+                var obj = $('#set_service').val() + "~~" + $('#set_bound').val() + "~~" + $('#set_voynum').val() + "~~" + $('#set_vslcode').val() + "~~" + $('#set_vslname').val() + "~~" + $('#set_port').val() + "~~";
+                db.get('cospschedule').push(obj).write();
+               $('#set_service').val("");
+               $('#set_bound').val("");
+               $('#set_voynum').val("");
+               $('#set_vslcode').val("");
+               $('#set_vslname').val("");
+               $('#set_port').val("");
+                alert("Schedule Added Successfully");           
+              
+            }
+        }
+    </script>
+
+    <script type="text/javascript" src="../../shared/js/html5Forms.js" data-webforms2-support="date" data-webforms2-force-js-validation="true"
+        data-webforms2-force-js-date-picker="true" data-lang="en">
+        </script>
+
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Arrival Reports</title>
+
+	
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<script src="../vendor/jquery/jquery.js"></script>
+	<script src="../js/jquery-3.2.1.min.js"></script>
+
+	<script src="../js/vessel.js"></script>
+	<script src="../js/port.js"></script>
+	<script src="../js/fuel.js"></script>
+	<script src="../js/country.js"></script>
+	<script src="../js/fuelgrade.js"></script>
+	<script src="../js/mailconfig.js"></script>
+	<script src="../js/schedules.js"></script>
+	<script src="../js/arival.js"></script>
+	<script src="../js/fuelcombi.js"></script>
+	<script src="../js/rendered.js"></script>
+	<script src="../js/masterreport.js"></script>
+	<script src="../js/mailaction.js"></script>
+
+
+</head>
+<div id="page-content-wrapper">
+	<form id="arrivalform">
+		<div class="container-fluid">
+			<div class="row">
+
+			<div style="background:white;border: 1px solid #ffffff;box-shadow: 5px 5px 27px #8f8e8e;border-radius: 10px;margin:0 auto;Z-INDEX: 2000; margin-top: -15px;">
+				
+			<div class="col-sm-12" style="font-size:16px;color:#00b6e3;margin-top: 5px;font-weight:bold;background-color: darkblue !important;margin-top: 0px; color:white;padding:5px;border-radius:10px 10px 0 0">
+					
+				<div class="col-sm-3  text-left"  style="padding-top: 7px !important;" >Arrival Report </div>
+				<div class="col-sm-6  text-center">
+	                <span  maxlength="200" style="font-size: 25px !important;" id="span_vesselname" readonly> </span>
+	            </div> 
+
+	        
+            </div> 
+				<div style="margin-top: 50px">
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="col-sm-2 text-right">Arrival Port
+									<span class="required" style="color:red">&nbsp;*</span>
+								</div>
+								<div class="col-sm-2">
+									<input class="form-control" maxlength="150" id="arr_arrivalport" list="portList" onchange="setArrPortCode(this)">
+									<datalist id="portList" />
+								</div>
+								<div class="col-sm-2 text-right">Unlocode
+									<span class="required" style="color:red">&nbsp;*</span>
+								</div>
+								<div class="col-sm-2">
+									<input class="form-control" maxlength="5" id="arr_unloccode">
+								</div>
+								<div class="col-sm-2 text-right">off set from utc
+									<span style="font-size: 10px;">(East +, West -) </span>
+								</div>
+								<div class="col-sm-1" style=" padding-right: 0 !important; display:-webkit-inline-box;">
+									<select class="form-control" id="arr_offsetfromutc1">
+										<option>+</option>
+										<option>-</option>
+									</select>
+								</div>
+								<div class="col-sm-1" style=" padding-right: 0 !important; margin-left:-10px !important;">
+									<input class="form-control" style="width:92% !important;" id="arr_offsetfromutc2" onkeypress="return isTime(event)" onchange="validateTime(this);"
+									 ondrop="return false;" onpaste="return false;" value="00:00" maxlength="5"> </div>
+
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="col-sm-2 text-right">last port </div>
+								<div class="col-sm-2">
+									<input class="form-control" maxlength="150" id="arr_lastport" list="portList" onchange="setLasPortCode(this)">
+								</div>
+								<!--<div class="col-sm-2 text-right">Country </div>
+								<div class="col-sm-2">
+									<input list="countylist" maxlength="50" onblur="setCountryName1(this)" class="form-control" id="arr_lastportcountry">
+								</div> -->
+								<div class="col-sm-2 text-right">Unlocode </div>
+								<div class="col-sm-2">
+									<input class="form-control" maxlength="5" id="arr_lastportunlocode">
+								</div>
+								<div class="col-sm-2 text-right">IMO Number</div>
+								<div class="col-sm-2">
+									<input class="form-control" maxlength="50" id="arr_imonum" readonly>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-12" style="margin-top:10px">
+									<div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+									</div>
+									<div class="section_header">
+										In Bound Information
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+
+
+						<div class="row">
+
+							<div class="col-sm-12" style="margin-top: 10px;">
+								<div class="col-sm-2 text-right">EOSP
+								</div>
+								<div class="col-sm-2" style="padding-right:0px">
+									<input class="form-control" id="arr_eosp1" type="date">
+								</div>
+
+								<div class="col-sm-2">
+									<input class="form-control" id="arr_eosp2" onkeypress="return isTime(event)" onchange="validateTime(this);" ondrop="return false;"
+									 onpaste="return false;" value="00:00" maxlength="5">
+								</div>
+								<div class="col-sm-2 text-right"> All FAST/ FWE
+									<span class="required" style="color:red">&nbsp;*</span>
+								</div>
+								<div class="col-sm-2" style="padding-right:0px">
+									<input class="form-control" id="arr_allfastfwe1" type="date">
+								</div>
+								<div class="col-sm-2">
+									<input class="form-control" id="arr_allfastfwe2" onkeypress="return isTime(event)" onchange="validateTime(this);"
+									 ondrop="return false;" onpaste="return false;" value="00:00" maxlength="5">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+
+							<div class="col-sm-12">
+								<div class="col-sm-2 text-right">Pilot on Board
+									<span class="required" style="color:red">&nbsp;*</span>
+								</div>
+								<div class="col-sm-2 " style="padding-right:0px">
+									<input class="form-control" id="arr_pilotonboard1" type="date">
+								</div>
+								<div class="col-sm-2">
+									<input class="form-control" id="arr_pilotonboard2" onkeypress="return isTime(event)" onchange="validateTime(this);"
+									 ondrop="return false;" onpaste="return false;" value="00:00" maxlength="5">
+								</div>
+
+								<div class="col-sm-2 text-right">Start Cargo ops
+									<span class="required" style="color:red"></span>
+								</div>
+								<div class="col-sm-2" style="padding-right:0px">
+									<input class="form-control" id="arr_startcargoops1" type="date">
+								</div>
+								<div class="col-sm-2">
+									<input class="form-control" id="arr_startcargoops2" onkeypress="return isTime(event)" onchange="validateTime(this);"
+									 ondrop="return false;" onpaste="return false;" value="00:00" maxlength="5">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+
+							<div class="col-sm-12">
+								<div class="col-sm-2 text-right">First Line Ashore
+									<span class="required" style="color:red"></span>
+								</div>
+								<div class="col-sm-2 " style="padding-right:0px">
+									<input class="form-control" id="arr_firstlineashore1" type="date">
+								</div>
+								<div class="col-sm-2">
+									<input class="form-control" id="arr_firstlineashore2" onkeypress="return isTime(event)" onchange="validateTime(this);"
+									 ondrop="return false;" onpaste="return false;" value="00:00" maxlength="5">
+								</div>
+
+								<div class="col-sm-2 text-right">ETD
+									<span class="required" style="color:red"></span>
+								</div>
+								<div class="col-sm-2" style="padding-right:0px">
+									<input class="form-control" id="arr_etd1" type="date">
+								</div>
+								<div class="col-sm-2">
+									<input class="form-control" id="arr_etd2" onkeypress="return isTime(event)" onchange="validateTime(this);" ondrop="return false;"
+									 onpaste="return false;" value="00:00" maxlength="5">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+
+							<div class="col-sm-12">
+								<div class="col-sm-2 text-right">draft fwd
+									<span style="font-size: 10px;">(M)</span>
+								</div>
+								<div class="col-sm-4 ">
+									<input class="form-control rit-align" id="arr_draftfwd" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+
+								<div class="col-sm-2 text-right">ballast
+									<span style="font-size: 10px;">(MT)</span>
+								</div>
+								<div class="col-sm-4">
+									<input class="form-control rit-align" id="arr_ballast" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+
+							</div>
+						</div>
+
+						<div class="row">
+
+							<div class="col-sm-12">
+								<div class="col-sm-2 text-right">draft aft
+									<span style="font-size: 10px;">(M)</span>
+								</div>
+								<div class="col-sm-4 ">
+									<input class="form-control rit-align" id="arr_draftaft" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+
+								<div class="col-sm-2 text-right">sludge
+									<span style="font-size: 10px;">(MT)</span>
+								</div>
+								<div class="col-sm-4">
+									<input class="form-control rit-align" id="arr_sludge" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+
+
+							</div>
+						</div>
+
+						<div class="row">
+
+							<div class="col-sm-12">
+								<div class="col-sm-2 text-right">GM
+								</div>
+								<div class="col-sm-4">
+									<input class="form-control rit-align" id="arr_gm" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+
+
+
+								<div class="col-sm-2 text-right">tugs on arrival </div>
+								<div class="col-sm-4">
+									<input class="form-control rit-align" id="arr_tugsonarrival" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+
+							<div class="col-sm-12">
+								<div class="col-sm-2 text-right">BM
+									<span style="font-size: 10px;">(%)</span>
+								</div>
+								<div class="col-sm-4 ">
+									<input class="form-control rit-align" id="arr_bm" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+
+								<div class="col-sm-2 text-right">TM
+									<span style="font-size: 10px;">(%)</span>
+								</div>
+								<div class="col-sm-4">
+									<input class="form-control rit-align" id="arr_tm" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+
+							<div class="col-sm-12">
+
+								<div class="col-sm-2 text-right">SF
+									<span style="font-size: 10px;">(%)</span>
+								</div>
+								<div class="col-sm-4">
+									<input class="form-control rit-align" id="arr_sf" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+
+								<div class="col-sm-2 text-right">displacement
+									<span style="font-size: 10px;">(M)</span>
+								</div>
+								<div class="col-sm-4 ">
+									<input class="form-control rit-align" id="arr_displacement" onkeypress="return isNumber(event)" onchange="return validateDecimal(this)"
+									 ondrop="return false;" onpaste="return false;" value="0.00">
+								</div>
+
+							</div>
+						</div>
+
+
+
+
+						<!-- /.row -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12" style="margin-top:10px">
+									<div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+									</div>
+									<div class="section_header">
+										Fuel Details
+									</div>
+
+
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12" style="padding:18px; width:99%; margin-left:7px;">
+                	<div class="panel panel-info highlighter">
+                		<div class="panel-body" style="padding:6px">
+                
+							<table id="ArrDTable" class="table table-bordered" style="margin-left:8px;">
+                    			<thead>
+                        			<tr>
+			                            <th class="text-center">FUEL TYPE</th>
+			                            <th class="text-center">ME CONSP <span style="font-size: 10px;"> (MT) (Since EOSP report)</span> </th>
+			                            <th class="text-center">AE CONSP<span style="font-size: 10px;">(MT)</span>
+											<span style="font-size: 10px;">(Since EOSP report)</span> </th>
+			                            <th class="text-center"> BOILER CONSP<span style="font-size: 10px;">(MT)</span>
+											<span style="font-size: 10px;">(Since EOSP report)</span> </th>
+			                            <th class="text-center"> TOTAL CONSP<span style="font-size: 10px;"> (MT)</span></th>
+			                            <th class="text-center"> BROB at ARR 'FWE'<span style="font-size: 10px;">(MT)</span></th>
+                         			</tr>
+                    			</thead>
+                     			<tbody>
+                        
+
+                    			</tbody>
+                			</table>
+            			</div>
+
+            		</div>
+			</div>
+		</div>
+		<div class="row">
+				<div class="col-lg-12" style="padding:0 30px">
+					<div class="form-group">
+						<div class="row">
+
+							<div class="section_header_top" style="height: 3px !important; width: 97%; margin-right: 0px;">
+										</div>
+										<div class="section_header">
+											Remarks
+										</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div class="table-responsive">
+										<table class="table table-striped table-bordered table-hover">
+
+											<tbody>
+												<tr>
+													<td>
+														<textarea class="form-control1" maxlength="500" rows="3" id="arr_remarks"></textarea>
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+							</div>
+						</div>
+			</div>
+		</div>
+	</div>
+
+	<br/>
+					<!-----------/buttons-------------->
+					<!-- /.row -->
+					
+	<div class="form-group">
+            <div class="col-lg-12" style="text-align: right;">
+               <!--<button type="button" class="btn btn-primary" onclick="return sendAction('arr')">Send</button>-->
+               <!-- <button type="button" class="btn btn-primary" id="saveFile" onclick="lowDBvalidation();">Save</button> -->
+                <button type="button" class="btn btn-success" id="sendMail" onclick="mailSend();"> <i class="fa fa-paper-plane-o"> </i> Send
+                </button>
+                <button type="button" class="btn btn-danger" onclick="resetarrAction()" > <i class="fa fa-undo"> </i> Reset</button>
+            </div>
+        </div>
+		<br/><br/>
+
+	</div>
+</div> 
+
+</div> 
+</form>
+
+	</div>
+
+	<!-- <footer class="main-footer">
+  <strong> Copyright © 2017 <a href="http://www.solverminds.com" target="_blank">www.solverminds.com</a>.</strong> All rights reserved. 
+  </footer>	 -->
+
+
+
+	<div class="modal fade" id="modalCompose">
+        <div class="modal-dialog" style="width: 636px">
+            <div class="modal-content">
+                <div class="modal-header modal-header-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-envelope"></span> Compose Mail</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputFrom">
+                                <span class="glyphicon glyphicon-user"></span>From</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputFrom">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputTo">
+                                <span class="glyphicon glyphicon-user"></span>To</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputTo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="ccTo">
+                                <span class="glyphicon glyphicon-user"></span>CC</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="ccTo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputSubject">
+                                <span class="glyphicon glyphicon-list-alt"></span>Subject</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputSubject" placeholder="subject">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="no-space-break  col-sm-2" for="inputAttach">
+                                <span class="fa fa-paperclip"></span>Attachment</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputAttach" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2" for="inputBody">
+                                <span class="glyphicon glyphicon-list"></span>text</label>
+                            <div class="col-sm-10">
+                            	<div class="table-responsive" >
+                            	  	<table class="table table-striped table-bordered table-hover">
+                            	  		<tbody>
+												<tr>
+													<td>
+                                						<textarea class="form-control1" style="background-color: #eeeeee !important" maxlength="500" rows="3" id="inputBody"></textarea>
+                                					</td>
+												</tr>
+										</tbody>
+                                	</table>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="MailAction('arrivalform')">Send
+                        <i class="fa fa-arrow-circle-right fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hide-Progress-overlay show-Progress-overlay">
+            <div class="glassPane">
+                <div class="progress-bar">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                    <!--md-progress-circle mode="indeterminate" color="primary"></md-progress-circle-->
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+    	console.log('ready function');
+    		
+
+        	var info = (db.get('vesselinfo').value());
+
+        	document.getElementById("span_vesselname").innerHTML=info[0].vslname;
+        	$('#arr_imonum').val(info[0].imodetails);
+        	getFuelarrdataTable();  
+        	setportsArr();
+        
+    });
+
+    function resetarrAction(){
+    	document.getElementById('arrivalform').reset();
+    	var info = (db.get('vesselinfo').value());
+    	$('#arr_imonum').val(info[0].imodetails);
+    }
+
+    function setportsArr(){
+    		var mydep = db.get('ports').value();
+            var options = '';
+        	console.log('size'+mydep.length);
+    	 	for (var i = 0; i < mydep.length; i++) {
+    	 		 	options += '<option value="'+mydep[i].portname+'~~'+mydep[i].portcode+'" />';
+    	 		document.getElementById('portList').innerHTML = options;
+    	 	}
+    }
+
+	function lowDBvalidation(){
+		//if(return sendAction('nrp')){
+			saveAndSendAction("save")
+		//}
+	}
+	function mailSend(){
+		 if(bdnARRsavevalidation()){
+		saveAndSendAction("sendMail")
+	     }
+	}
+
+
+	 function bdnARRsavevalidation(){
+            if($('#arr_arrivalport').val()=="") {
+                alert("Kindly Enter the Arrival Port");
+                return false;
+            }
+            else if($('#arr_unloccode').val()=="")  {
+                alert("Kindly Enter the UnLoc Code");
+                return false;
+            }
+            else if($('#arr_pilotonboard1').val()=="")  {
+                alert("Kindly Enter the Pilot on board");
+                return false;
+            }
+             else if($('#arr_allfastfwe1').val()=="")  {
+                alert("Kindly Enter the ALL FAST/FWE Date");
+                return false;
+            }
+             else{
+                return true;
+            }
+  }
+
+function saveAndSendAction(type) {
+			var arrReportArray = [];
+			var arrboundinfoReportArray=[];
+			var arrfuelArray=[];
+			var arrremarks=[];
+				
+				var table = document.getElementById("ArrDTable");
+            for (var i = 1, row; row = table.rows[i]; i++) {
+
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    if (j == 0) {
+                        var fuel = ($(col).find("input").val());
+                    }
+                    if (j == 1) {
+                        var meConsp = ($(col).find("input").val());
+                    }
+                    if (j == 2) {
+                        var aeConsp = ($(col).find("input").val());
+                    }
+                    if(j == 3){
+                    	var boilerConsp = ($(col).find("input").val());
+                    }
+                    if(j == 4){
+                    	var TotalConsp = ($(col).find("input").val());
+                    }
+                    if(j == 5){
+                    	var brob = ($(col).find("input").val());
+                    }
+                   
+                }
+
+                arrfuelArray.push({ "fuel": fuel, "meConsp": meConsp, "aeConsp": aeConsp,"boilerConsp":boilerConsp,"TotalConsp":TotalConsp,"brob":brob});
+                }
+
+			var scheduledet=db.get('vesselinfo').value();
+
+			var narr_eosp2;
+			var narr_firstlineashore2;
+			var narr_startcargoops2;
+			var narr_etd2;
+
+			if($('#arr_eosp1').val()==''){
+				narr_eosp2='';
+			} else{
+				narr_eosp2=$('#arr_eosp2').val();
+			}
+			if($('#arr_firstlineashore1').val()==''){
+				narr_firstlineashore2="";
+			} else {
+				narr_firstlineashore2=$('#arr_firstlineashore2').val();
+			}
+			if($('#arr_startcargoops1').val()==''){
+				narr_startcargoops2="";
+			} else{
+				narr_startcargoops2=$('#arr_startcargoops2').val();
+			}
+			if($('#arr_etd1').val()==''){
+				narr_etd2="";
+			} else {
+				narr_etd2=$('#arr_etd2').val();
+			}
+
+			var arrdetails={
+
+				"arr_service" : scheduledet[0].service,
+				"arr_vesselcode" : scheduledet[0].vslcode,
+				"arr_voyageno" :'',
+				"arr_bound" : '',
+				"arr_arrivalport":$('#arr_arrivalport').val(),
+				"arr_unloccode":$('#arr_unloccode').val(),
+				"arr_callsign":'',
+				"arr_mastername":'',
+				"arr_imonum" :$('#arr_imonum').val(),
+
+				
+				"arr_lastport":$('#arr_lastport').val(), 
+				"arr_lastportunlocode":$('#arr_lastportunlocode').val(),
+				"arr_lastportcountry" :'',
+				"arr_country" :'',
+				"arr_offsetfromutc1":$('#arr_offsetfromutc1').val(),
+				"arr_offsetfromutc2":$('#arr_offsetfromutc2').val(),
+
+				"arr_eosp1":$('#arr_eosp1').val(),
+				"arr_eosp2":narr_eosp2,
+				"arr_pilotonboard1":$('#arr_pilotonboard1').val(),
+				"arr_pilotonboard2":$('#arr_pilotonboard2').val(),
+				"arr_firstlineashore1":$('#arr_firstlineashore1').val(),
+				"arr_firstlineashore2":narr_firstlineashore2,
+				"arr_allfastfwe1":$('#arr_allfastfwe1').val(),
+				"arr_allfastfwe2":$('#arr_allfastfwe2').val(),
+				
+				"arr_startcargoops1":$('#arr_startcargoops1').val(),
+				"arr_startcargoops2":narr_startcargoops2,
+				
+				"arr_etd1":$('#arr_etd1').val(),
+				"arr_etd2":narr_etd2,
+
+				"arr_draftfwd":$('#arr_draftfwd').val(),
+				"arr_draftaft":$('#arr_draftaft').val(),
+				"arr_ballast":$('#arr_ballast').val(),
+				"arr_sludge":$('#arr_sludge').val(),
+				"arr_gm":$('#arr_gm').val(),
+				"arr_tugsonarrival":$('#arr_tugsonarrival').val(),
+				"arr_displacement":$('#arr_displacement').val(),
+				"arr_bm":$('#arr_bm').val(),
+				"arr_tm":$('#arr_tm').val(),
+				"arr_sf":$('#arr_sf').val(),
+				"arr_remarks":$('#arr_remarks').val(),
+				"fueldetails":arrfuelArray
+			};
+            
+            
+              console.log(arrdetails);
+            /* db.get('arraivalreport').push(arrReportDetails).write();
+            var size = (db.get("arraivalreport").size().value());
+            var value = (db.get('arraivalreport').nth(size - 1).value());
+            console.log(value); */
+            // db1.get('maildata').nth(0).assign(arrdetails).value();
+            // db1.write();
+            	db1.get('maildata').remove().write();
+               db1.defaults({ maildata: [{}] }).write();
+               db1.get('maildata').push(arrdetails).write();
+
+               var maximum = 100000;
+         	var minimum = 100;
+         	var randomnumber = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+          	document.getElementById("inputSubject").value = "Arrival Report"+randomnumber+".json";
+ 			document.getElementById("inputAttach").value = "Arrival Report"+randomnumber+".json";
+               
+             if (type == "save") {
+             	alert("Successfully Saved");
+             }else{
+                $('#modalCompose').modal('show');
+                var maildetail = (db.get('sysconfig').value());
+                console.log(maildetail);
+                $("#inputFrom").val(maildetail[0].from);
+                $("#inputTo").val(maildetail[0].to);
+                $("#ccTo").val(maildetail[0].vesselemail);
+                $('#inputBody').val($('#arr_remarks').val());
+               }
+        }
+
+ </script>
+
+<!-- /#wrapper -->
+<!-- <script>
+	$("#menu-toggle").click(function (e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
+</script> -->
+<!-- jQuery -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

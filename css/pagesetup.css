@@ -1,0 +1,77 @@
+#latdeg, #londeg{
+    width:50px;
+}
+#latdir, #londir{
+    width:40px;
+}
+form {  /* set width in form, not fieldset (still takes up more room w/ fieldset width */
+    font:80% verdana,arial,sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    min-width: 800px;
+    max-width: 900px;
+    width: 800px;
+    /*text-align: center;*/
+}
+tr {
+    border-spacing:5em;
+}
+#country{
+    width:200px;
+}
+#port{
+    width:200px;
+}
+
+form fieldset {
+    /* clear: both; note that this clear causes inputs to break to left in ie5.x mac, commented out */
+    border-color: #000;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;        /* padding in fieldset support spotty in IE */
+    margin: 0;
+}
+
+form fieldset legend {
+    font-size:1.3em; /* bump up legend font size, not too large or it'll overwrite border on left */
+    /* be careful with padding, it'll shift the nice offset on top of border  */
+}
+
+form label {
+    display: block;  /* block float the labels to left column, set a width */
+    /*float: left;*/
+    width: 200px;
+    padding: 0;
+    margin: 15px 0 0; /* set top margin same as form input - textarea etc. elements */
+    text-align: right;
+}
+
+/*form fieldset label:first-letter { /* use first-letter pseudo-class to underline accesskey, note that */
+/*text-decoration:underline;    /* Firefox 1.07 WIN and Explorer 5.2 Mac don't support first-letter */
+/* pseudo-class on legend elements, but do support it on label elements */
+/* we instead underline first letter on each label element and accesskey */
+/* each input. doing only legends would  lessens cognitive load */
+/* opera breaks after first letter underlined legends but not labels */
+/*}*/
+
+form input, form textarea {
+    /* display: inline; inline display must not be set or will hide submit buttons in IE 5x mac */
+    width:auto;      /* set width of form elements to auto-size, otherwise watch for wrap on resize */
+    margin:5px 0 0 10px; /* set margin on left of form elements rather than right of
+                              label aligns textarea better in IE */
+}
+
+form .required{font-weight:bold;} /* uses class instead of div, more efficient */
+
+
+body {
+    font-family:arial,helvetica,sans-serif;
+    font-size:12px;
+}
+
+.blank_row
+{
+    height: 20px; /* overwrites any other rules */
+    background-color: #FFFFFF;
+}
+

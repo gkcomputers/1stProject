@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Product Information</title>
+
+
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page
+	 via file:// -->
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link href="../css/progressbar.css" rel="stylesheet" type="text/css">
+
+	<link href="../css/bdn.css" rel="stylesheet" type="text/css">
+	<script src="../js/datatable.js"></script>
+	<link href="../css/datatable.css" rel="stylesheet" type="text/css">
+	<link href="../css/productcss.css" rel="stylesheet" type="text/css">
+	<script src="../js/product.js"></script>
+
+
+</head>
+<div id="page-content-wrapper">
+	<form id="productform">
+
+		<div class="container-fluid">
+			<div class="row">
+
+			<div style="background:white;border: 1px solid #ffffff;box-shadow: 5px 5px 27px #8f8e8e;border-radius: 10px;margin:0 auto;Z-INDEX: 2000; margin-top: -15px;">
+
+			<div class="col-sm-12" style="font-size:16px;color:#00b6e3;margin-top: 5px;font-weight:bold;background-color: darkblue !important;margin-top: 0px; color:white;padding:5px;border-radius:10px 10px 0 0">
+
+				<div class="col-sm-3  text-left"  style="padding-top: 7px !important;" >Product Information </div>
+				<div class="col-sm-6  text-center">
+	                <span  maxlength="200" style="font-size: 25px !important;" id="span_vesselname" readonly> </span>
+	            </div>
+
+
+            </div>
+						<div class="row">
+							<div class="col-sm-12" style="padding:18px; width:99%; margin-left:7px;">
+				      <div class="panel panel-info highlighter">
+				      <div class="panel-body" style="padding:6px">
+
+							<table id="proDTable" class="display" style="margin-left:8px;">
+				          	<thead>
+				            	<tr>
+							             <th class="text-center">Product ID</th>
+							             <th class="text-center">Product Name </th>
+							             <th class="text-center">M.R.P </th>
+							             <th class="text-center">RATE </th>
+													 <th class="text-center">Edit </th>
+							             <th class="text-center">Delete </th>
+				              </tr>
+				            </thead>
+										<tbody id="proDTableBody">
+										</tbody>
+
+				      </table>
+						</div>
+						</div>
+						</div>
+						</div>
+
+	</div>
+
+	<br/>
+					<!-----------/buttons-------------->
+					<!-- /.row -->
+
+	<div class="form-group">
+						<div class="col-lg-6" >
+							<button type="button" class="btn btn-success" id="prodEditAll" onclick="prodEditAllAction();"> <i class="fa fa-paper-plane-o"> </i> Edit All
+							</button>
+							<button type="button" class="btn btn-success" id="sendMail" onclick="mailSend();"> <i class="fa fa-paper-plane-o"> </i> Save
+							</button>
+						</div>
+            <div class="col-lg-6" style="text-align: right;">
+
+               <!--<button type="button" class="btn btn-primary" onclick="return sendAction('arr')">Send</button>-->
+               <!-- <button type="button" class="btn btn-primary" id="saveFile" onclick="lowDBvalidation();">Save</button> -->
+							 <button type="button" class="btn btn-success" id="prodAdd" onclick="prodAddAction();"> <i class="fa fa-paper-plane-o"> </i> Add New Product
+							 </button>
+                <button type="button" class="btn btn-danger" onclick="resetarrAction()" > <i class="fa fa-undo"> </i> Cancel</button>
+            </div>
+  </div>
+		<br/><br/>
+
+	</div>
+</div>
+
+</div>
+</form>
+
+	</div>
+
+	<!-- <footer class="main-footer">
+  <strong> Copyright © 2017 <a href="http://www.solverminds.com" target="_blank">www.solverminds.com</a>.</strong> All rights reserved.
+  </footer>	 -->
+
+
+
+	<div class="modal fade" id="modalCompose" >
+        <div class="modal-dialog" style="width: 636px">
+            <div class="modal-content" id="formModel">
+                <div class="modal-header modal-header-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-envelope"></span> Add New Product Details</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="productform"  class="form-horizontal">
+											<div class="col-sm-12 form-group">
+												<div class="col-sm-1 text-right" >
+
+											    </div>
+											    <div class="col-sm-9 productdetails">
+												  <table id="product" class="table table-bordered" style="margin-left: 5px">
+													<thead>
+														<th style="padding:5px !important;text-align:center;" id="info_fuelrequirement">Product ID</th>
+														<th style="padding:5px !important;text-align:center;" id="info_bunstem">Product Name</th>
+														<th style="padding:5px !important;text-align:center;" id="info_bunstem">M.R.P</th>
+														<th style="padding:5px !important;text-align:center;" id="info_bunstem">RATE</th>
+														<th style="padding:5px !important;text-align:center;" id="info_maxintake">Action</th>
+														<a>
+															<i class="fa fa-plus-circle "> </i>
+														</a>
+													</thead>
+													<tbody id="dataTablePro">
+														<td>
+															<input style="text-align: left; height: 30px !important;" class="form-control rightalign"
+															id="productid0">
+														</td>
+														<td>
+															<input style="text-align: right; height: 30px !important;" class="form-control rightalign" id="productval0">
+														</td>
+														<td>
+															<input style="text-align: left; height: 30px !important;" class="form-control rightalign" id="prodmrp0">
+														</td>
+														<td>
+															<input style="text-align: right; height: 30px !important;" class="form-control rightalign" id="prodrate0">
+														</td>
+														<td>
+															 <button style="text-align: right; height: 30px !important;" onclick="onProdremove(event)"
+															class="btn btn-danger" id="bdn_productaction"> <i class="fa fa-remove"> </i> </button>
+														</td>
+
+													</tbody>
+												</table>
+
+											   </div>
+											   <div class="col-sm-1" style="margin-top:15px; margin-left: 5px">
+												   <button type="button" style="padding: 4px;" class="btn btn-primary" onclick="addRowproduct('dataTablePro')">
+													<i class="fa fa-plus-circle "> </i> ADD</button>
+											   </div>
+											</div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="ModelSend" class="btn btn-primary" onclick="saveNewProduct()">Save
+                        <i class="fa fa-arrow-circle-right fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hide-Progress-overlay show-Progress-overlay">
+            <div class="glassPane">
+                <div class="progress-bar">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
+                    <!--md-progress-circle mode="indeterminate" color="primary"></md-progress-circle-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+		<div class="modal fade" id="modalEditCompose" >
+	        <div class="modal-dialog" style="width: 636px">
+	            <div class="modal-content" id="formModel">
+	                <div class="modal-header modal-header-info">
+	                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	                    <h4 class="modal-title">
+	                        <span class="glyphicon glyphicon-envelope"></span> Edit Product Details</h4>
+	                </div>
+	                <div class="modal-body">
+	                    <form role="form" id="productEditform"  class="form-horizontal">
+												<div class="col-sm-12 form-group">
+													<div class="col-sm-1 text-right" >
+
+												    </div>
+												    <div class="col-sm-9 productdetails">
+													  <table id="product" class="table table-bordered" style="margin-left: 5px;width:547px">
+														<thead>
+															<th style="padding:5px !important;text-align:center;" id="info_fuelrequirement">Product ID</th>
+															<th style="padding:5px !important;text-align:center;" id="info_bunstem">Product Name</th>
+															<th style="padding:5px !important;text-align:center;" id="info_bunstem">M.R.P</th>
+															<th style="padding:5px !important;text-align:center;" id="info_bunstem">RATE</th>
+
+															<a>
+																<i class="fa fa-plus-circle "> </i>
+															</a>
+														</thead>
+														<tbody id="dataTablePro">
+															<td>
+																<input style="text-align: left; height: 30px !important;" readonly class="form-control rightalign"
+																id="productide0">
+															</td>
+															<td>
+																<input style="text-align: right; height: 30px !important;" class="form-control rightalign" id="productvale0">
+															</td>
+															<td>
+																<input style="text-align: left; height: 30px !important;" class="form-control rightalign" id="prodmrpe0">
+															</td>
+															<td>
+																<input style="text-align: right; height: 30px !important;" class="form-control rightalign" id="prodratee0">
+															</td>
+
+														</tbody>
+													</table>
+
+												   </div>
+
+												</div>
+	                    </form>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+	                    <button type="button" id="ModelSend" class="btn btn-primary" onclick="saveEditProduct()">Save
+	                        <i class="fa fa-arrow-circle-right fa-lg"></i>
+	                    </button>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="hide-Progress-overlay show-Progress-overlay">
+	            <div class="glassPane">
+	                <div class="progress-bar">
+	                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+	                    <span class="sr-only">Loading...</span>
+	                    <!--md-progress-circle mode="indeterminate" color="primary"></md-progress-circle-->
+	                </div>
+	            </div>
+	        </div>
+
+	    </div>
+
+			<!--delete-->
+			<div class="modal fade" id="modalDeleteCompose" >
+		        <div class="modal-dialog" style="width: 440px">
+		            <div class="modal-content" id="formModel" style="height: 97px; border: 7px solid">
+
+		                <div >
+
+													<div class="col-sm-12 form-group" style="text-align:center">
+														<div class="col-sm-12" >
+															<span style="font-size: 18px">Are you sure to delete</span><span style="font-size:18px;color:red">Product</span>
+															<span style="font-size: 18px;color:red" id="span_delete"></span> <span style="font-size:18px;color:red">?</span>
+													   </div>
+
+
+													</div>
+
+		                </div>
+		                <div >
+											<div class="col-sm-3"></div>
+											<div class="col-sm-6" >
+
+		                    <button type="button" id="DelSend" class="btn btn-danger fa fa-trash" onclick="DelteProduct()">Delete
+		                    </button>
+												<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+											</div>
+											<div class="col-sm-3"></div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+<script type="text/javascript">
+
+
+
+
+
+
+
+
+	function mailSend(){
+		 if(bdnARRsavevalidation()){
+		saveAndSendAction("sendMail")
+	     }
+	}
+
+
+	 function bdnARRsavevalidation(){
+            return true;
+  }
+
+function saveAndSendAction(type) {
+        }
+
+
+
+ </script>
+
+<!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
